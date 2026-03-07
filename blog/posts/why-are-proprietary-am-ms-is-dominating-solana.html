@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why Are Proprietary AMMs Is Dominating Solana? | Cyberk Blog</title>
+  <meta name="description" content="Solana&#x27;s liquidity structure is being rebuilt around a new model - Proprietary AMMs.">
+  <link rel="canonical" href="https://cyberk.io/blog/why-are-proprietary-am-ms-is-dominating-solana">
+  <meta property="og:title" content="Why Are Proprietary AMMs Is Dominating Solana? | Cyberk Blog">
+  <meta property="og:description" content="Solana&#x27;s liquidity structure is being rebuilt around a new model - Proprietary AMMs.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_116f3ab4b3.png">
+  <meta property="og:url" content="https://cyberk.io/blog/why-are-proprietary-am-ms-is-dominating-solana">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Why Are Proprietary AMMs Is Dominating Solana?">
+  <meta name="twitter:description" content="Solana&#x27;s liquidity structure is being rebuilt around a new model - Proprietary AMMs.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_116f3ab4b3.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Why Are Proprietary AMMs Is Dominating Solana?</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>12 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_116f3ab4b3.png" alt="Why Are Proprietary AMMs Is Dominating Solana?" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>If you look at Solana over the past few months, almost every major liquidity pair shares one common pattern: most of the volume is flowing into <strong><a href="https://www.metacrm.inc/blog/solana-s-proprietary-amms-the-next-wave-of-defi-innovation">Proprietary AMMs (Prop AMMs)</a>.</strong> Over roughly the last 60 days, <a href="https://dune.com/the_defi_report/prop-amms">total daily trading volume across Prop AMMs</a> has held above $1 billion ,for SOL/USDC specifically. Prop AMMs frequently capture more than 60% market share and have peaked around 86% on some days. This is a clear signal that Solana’s liquidity structure is being rebuilt around a new model.</p>
+<p><img loading="lazy" src="https://d2l5jmy01h5jfp.cloudfront.net/SOL_USDC_9e2f0f3513.png" alt="SOL-USDC.png"/></p>
+<p>For a CTO or Web3 founder building products in DePIN, RWA, or AI Agents – especially systems that depend heavily on on-chain liquidity – the key question is no longer “Are Prop AMMs worth paying attention to?” but rather: if high‑quality liquidity on Solana is increasingly consolidating around Prop AMMs, what architectural adjustments does my product need in order not to fall behind? To answer that, we need to stop thinking of Prop AMMs as a “better Uniswap” and start treating them as an entirely different architectural primitive, born at the right time, on the right infrastructure, within the right market structure.</p>
+<h2 id="from-vending-machines-to-on-chain-hft-traders">From Vending Machines to On-Chain HFT Traders</h2>
+<p>When DeFi first emerged, traditional AMMs – like <a href="https://app.uniswap.org/">Uniswap v2</a> and v3 being the canonical examples are solving the problem of permissionless liquidity very well. Conceptually, they behave like vending machines: prices are defined by a fixed formula, most commonly (x * y = k), liquidity is provided passively by a <a href="https://hacken.io/discover/liquidity-pools/">crowd of LPs</a>, and the pricing curve only moves when trades pass through. No one “sits and watches” to decide how prices should be adjusted in real time; everything is encoded in the formula.</p>
+<p>This model is good enough for the early stage, but from the perspective of a professional market maker, its limitations are obvious. You cannot encode complex inventory‑management strategies, you cannot adjust spreads flexibly according to market conditions, and you cannot react quickly to sharp market moves when all you have is a static equation and a large amount of liquidity “sleeping” on a curve. Whenever the market moves, you are essentially standing still, waiting to be picked off by smarter order flow.</p>
+<p><strong>Prop AMMs</strong> follow a very different philosophy. Instead of letting a passive crowd of LPs dump capital into a shared pool, each **Prop AMM **is operated by a <strong>single professional market maker</strong>, using <strong>their own proprietary capital.</strong> The entire trading logic – previously running on <strong>private servers in finely tuned engines</strong> – which mean it is pushed directly on‑chain as a Solana program plus a <strong>pricing curve</strong> that can be updated continuously. If you think of traditional AMMs as vending machines with fixed price boards, a Prop AMM is like a high‑frequency trader sitting in front of multiple monitors, constantly updating quotes – except the engine is plugged directly into Solana’s runtime instead of a private rack of servers.</p>
+<p>From a computational‑complexity standpoint, this is a step change. On a traditional order book, updating quotes means canceling and replacing many orders; the cost scales with the number of orders, i.e. O(N). <strong>A Proprietary AMM,</strong> by contrast, represents its entire quoting state as a mathematical pricing curve; to change strategy, the market maker only needs to tweak a handful of parameters, turning the problem from O(N) into O(1). That enables them to quote tighter spreads, concentrate liquidity closer to the oracle price, and achieve much higher capital efficiency than passive AMMs with the same amount of capital. This is the first reason Prop AMMs have a natural edge in capturing market share – but for them to truly dominate, they also need the right infrastructure. That’s where Solana comes in.</p>
+<h2 id="solana-an-infrastructure-optimized-for-prop-amms">Solana: An Infrastructure Optimized for Prop AMMs</h2>
+<p>Prop AMMs are not a neutral DeFi pattern that you can trivially port to every chain. They are a Solana‑specific primitive because only on Solana do three critical factors line up: cheap updates, favorable execution prioritization, and an architecture that is close to real‑time systems.</p>
+<p><strong>First</strong>, Solana doesn’t just make swaps cheap; more importantly, it makes price updates extremely cheap. Lightweight oracle‑update transactions in systems like <strong><a href="https://humidifi.xyz/">HumidiFi</a></strong> consume on the order of 143 Compute Units, more than 1,000 times less than a typical aggregator swap. In practice, that means market makers can update their pricing curves at very high frequencies without being crushed by costs. If you are used to designing real‑time systems, you will recognize this as the condition where you can treat price updates as a continuous control plane rather than rare, expensive events.</p>
+<p><strong>Second</strong>, Solana prioritizes transactions based on the <strong>Fee / CU ratio</strong>. When an oracle‑update transaction uses very few CUs, adding a small tip is enough to give it an extremely high Fee/CU ratio and push it to the front of the Jito auction queue. The result is a cheap form of on‑chain “cancel priority”: Prop AMMs can refresh their quotes before taker buy/sell transactions are executed. This directly reduces the risk of adverse selection – being hit on stale quotes after the market has already moved – and allows market makers to run extremely tight spreads while keeping risk within acceptable bounds.</p>
+<p><strong>Third</strong>, Solana’s architecture allows multiple updates within a single slot, unlike the more discrete block‑based model of many EVM L1s/L2s. A Prop AMM such as <a href="https://humidifi.xyz/"><strong>HumidiFi</strong></a> can update its state dozens of times per second. At that point, a smart contract is no longer a piece of code that is “occasionally called”; it is effectively a real‑time market‑making engine living inside the chain’s runtime. These three elements – cheap updates, effective cancel priority, and a continuous architecture – combine to make active liquidity not just “nice to have” but the naturally optimal configuration. In that environment, Prop AMMs outcompeting passive AMMs is not a surprise; it is the logical outcome.</p>
+<h2 id="jupiter-the-order-flow-artery-for-prop-amms">Jupiter: The Order-Flow Artery for Prop AMMs</h2>
+<p>Even a perfectly designed Prop AMM engine is useless without sufficient, suitable order flow. This is where Solana’s market structure – dominated by aggregators, especially <strong><a href="https://jup.ag/">Jupiter</a></strong> – becomes strategically important for Prop AMMs.</p>
+<p>On Solana, more than <strong>40% of total DEX swap volume</strong> flows through <strong>aggregators</strong>, and <strong>Jupiter</strong> is by far the dominant player in that layer. For many Prop AMMs, the share of volume coming from aggregators is almost total: around <strong>99.2% of volume</strong> on GoonFi, <strong>97.3% on ZeroFi</strong>, <strong>92.5% on Orbic</strong>, and <strong>88.4% on SolFi</strong> is routed by aggregators. This creates a very clear reality: instead of having to source flow piecemeal from many wallets, dApps, and front‑ends, a Prop AMM can integrate once with Jupiter and instantly tap into a large stream of non‑toxic retail order flow across the entire network.</p>
+<p>The flow Jupiter provides has two crucial characteristics. First, it is predominantly retail flow, not razor‑sharp HFT or pure arbitrage strategies that specialize in hunting mispricing. Second, Jupiter’s goal is to optimize best execution for end users, not to shield or favor any particular AMM. Together, these two factors create an ideal environment:</p>
+<p>Prop AMMs can quote extremely tight spreads – in the 0–0.5 bps range for major pairs like SOL/USDC – while Jupiter, as a super‑aggregator, continually prefers whichever route offers the best price. The better a Prop AMM quotes, the more volume it receives; the more volume and fees it earns, the more room it has to refine its strategies and tighten spreads further. A classic positive flywheel emerges around a well‑tuned system.</p>
+<p>At a deeper layer, Jupiter also acts as a structural “gate.” Integration with Jupiter is permissioned: the team evaluates code quality, security audits, product traction, and team capability before opening up order‑flow distribution. Prop AMMs that meet this bar become part of the default routing universe; those that do not are effectively pushed to the margins. To end users, Prop AMMs are almost invisible; they just see a familiar swap interface, while Jupiter silently chooses the optimal route, with Prop AMMs being one of the destination venues. Architecturally, this is a legitimate choke point: a trusted routing layer at the top that can heavily shape the liquidity landscape underneath.</p>
+<h2 id="for-ctos-and-web3-builders-how-to-read-this-signal">For CTOs and Web3 Builders: How to Read This Signal</h2>
+<p>From the vantage point of a CTO or Web3 founder leading a small team on Solana, what is happening around Prop AMMs and Jupiter is not a one‑off DeFi fad; it is a meaningful architectural signal. The first thing to accept is that “good” liquidity – deep books, tight spreads, low slippage suitable for serious products – on Solana will increasingly migrate toward Prop AMMs. When you design your system, you should treat the Prop AMM + Jupiter combo as the default liquidity anchor unless you have extremely strong reasons to maintain a separate venue.</p>
+<p>Second, the old mental model of “community LPs + passive AMMs” is no longer sufficient as the only baseline. For use cases that demand CEX‑like execution quality – real‑time payments in DePIN, RWA transactions where price integrity is critical, and so on – you should think of Prop AMMs as a new type of liquidity backend that coexists with Uniswap‑style AMMs rather than as a linear upgrade of them. Your routing design, price‑syncing strategy, and fallback mechanisms should be built with that distinction in mind from day one.</p>
+<p>Third, if you are considering building a new DEX or liquidity venue on Solana, competing head‑on with Prop AMMs will be extremely challenging, not just technically but structurally. You would need to convince aggregators such as Jupiter to route meaningful volume your way, secure differentiated order flow, and simultaneously build a market‑making capability strong enough to exploit Solana’s architectural advantages as well as existing Prop AMMs already do.</p>
+<p>Finally, for systems in DePIN, RWA, or AI Agents where on‑chain prices are not just for display but feed directly into business logic, leveraging Prop AMMs as a dynamic, near‑real‑time reflection of market conditions can be a material advantage. At the same time, you must consciously design escape hatches: graceful‑degradation paths when Jupiter or a major Prop AMM has issues, secondary routing through passive AMMs, and clear risk limits around dependency on a small number of venues.</p>
+<h2 id="dark-corners-and-architectural-questions-you-should-ask">Dark Corners and Architectural Questions You Should Ask</h2>
+<p>From a systems‑architecture perspective, no model is free of trade‑offs, and Prop AMMs are no exception. One of the most uncomfortable aspects for those who grew up with the “code is law” ethos is the opacity of this model. Most Prop AMMs behave as <strong>black boxes</strong>: pricing strategies, swap logic, and how they react to edge conditions are typically not disclosed in detail. Downstream users and systems see only the final quotes and executions; most of the logic remains out of view.</p>
+<p>On top of that, the concentration of liquidity and order flow in a small set of Prop AMMs and a handful of key aggregators such as Jupiter introduces a form of re‑centralization at the execution layer. Everything still runs on‑chain, but structural power – who gets volume, who appears as the default route – tilts toward a few entities. From a product perspective, this is not inherently bad: users enjoy better execution, and developers gain access to a stronger primitive. But as a system designer, you need to see this dependency clearly instead of betting your entire architecture on the assumption that “these actors will always behave perfectly.”</p>
+<p>There is also the risk of ripple effects when a Prop AMM or Jupiter itself experiences a failure: a routing bug, an oracle issue, or some misconfiguration in a market‑making strategy. In a structure where a large share of volume flows through a single distribution channel, failures rarely stay localized; they propagate as systemic side effects. That is why, when you adopt Prop AMMs as a liquidity backend, you should explicitly design multiple fallback paths: routing through passive AMMs when necessary, enforcing conservative slippage thresholds, and preserving the ability to detach your product from any single venue when something goes wrong.</p>
+<p>The key is to stop viewing Prop AMMs as a “better Uniswap” and instead treat them as a separate primitive with its own constraint set and trade‑off surface. If you see them only as a natural upgrade to existing AMMs, you are likely to underestimate both their power and their risk. If, instead, you treat them as a new generation of liquidity backend, you will naturally design with wider safety margins, and you will be more inclined to build monitoring, alerting, and fallback mechanisms from day zero.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The current dominance of Proprietary AMMs on Solana is not the by‑product of a clever marketing campaign or a temporary incentive program. It is the result of three tightly aligned architectural choices: an underlying chain that makes price updates cheap and fast; a market‑making model that moves trading logic from off‑chain to on‑chain, leveraging O(1) updates instead of O(N); and an aggregator layer – with Jupiter at the center – that funnels a large stream of non‑toxic retail order flow toward whichever venues deliver the best execution.</p>
+<p>If you are building serious products on Solana, the question is no longer “Will Prop AMMs stick around?” but rather: how will you design your system so that it can both leverage Prop AMMs as a next‑generation liquidity primitive and still control the dependency and opacity risks that come with them? The more honestly and concretely you answer that question, the closer your product will get to the “fast but clean” standard – fast enough to keep pace with Solana’s rate of innovation, yet clean and robust enough to survive market shocks without collapsing under a naïve architectural assumption.</p>
+<p>Looking to build a large-scale indexer capable of handling millions of on-chain events and queries per second — without sacrificing speed, cost efficiency, or reliability?</p>
+<p>If you want to look for ways to implement a Large-scale Prop AMM into your business but aren’t sure where to begin, connect with us. With 5 years of experience and 60+ projects worldwide, Cyberk can plan, develop, optimize - from pivot to MVP in 30 days!</p>
+<p><strong><a href="../../about-us.html">Contact us</a></strong> and transform your business today!</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Why Are Proprietary AMMs Is Dominating Solana?",
+    "description": "Solana&#x27;s liquidity structure is being rebuilt around a new model - Proprietary AMMs.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_116f3ab4b3.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/why-are-proprietary-am-ms-is-dominating-solana"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

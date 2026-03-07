@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What We Can Learn from the $128M Balancer Attack | Cyberk Blog</title>
+  <meta name="description" content="This exploit is a wake-up call for every project writing economic logic in Solidity.">
+  <link rel="canonical" href="https://cyberk.io/blog/what-we-can-learn-from-the-128-m-balancer-attack">
+  <meta property="og:title" content="What We Can Learn from the $128M Balancer Attack | Cyberk Blog">
+  <meta property="og:description" content="This exploit is a wake-up call for every project writing economic logic in Solidity.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_8_909c979504.png">
+  <meta property="og:url" content="https://cyberk.io/blog/what-we-can-learn-from-the-128-m-balancer-attack">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="What We Can Learn from the $128M Balancer Attack">
+  <meta name="twitter:description" content="This exploit is a wake-up call for every project writing economic logic in Solidity.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_8_909c979504.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>What We Can Learn from the $128M Balancer Attack</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>6 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_8_909c979504.png" alt="What We Can Learn from the $128M Balancer Attack" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>On November 3, 2025, the prominent DeFi protocol <strong><a href="https://balancer.fi/">Balancer V2</a></strong> suffered a severe cyberattack, resulting in estimated losses of approximately $128 million, according to <strong><a href="https://blog.verichains.io/p/balancer-exploit-small-rounding-errors">Verichain</a></strong>. This event not only impacted numerous liquidity pools across major networks—including Ethereum, Base, Avalanche, Gnosis, Berachain, Polygon, Sonic, Arbitrum, and Optimism—but also propagated to other protocols based on the Balancer V2 fork. Notably, projects like Beets, BEX, and PHUX sustained damages, with BEX, the largest DEX on Berachain, reportedly losing about $13 million. Berachain was even forced to temporarily halt its chain operations to prevent the attacker from fully draining assets. As we analyze at <strong><a href="../../index.html">Cyberk</a></strong>, such incidents highlight the critical need for rigorous security practices in the DeFi space.</p>
+<p>Crucially, the Balancer development team had previously identified this specific rounding error but underestimated its impact, failing to patch it in time, which led to its critical exploitation. Following the main attack, numerous copycats and MEV bots rapidly replicated the exploit method to drain remaining pools, causing the total damage to escalate quickly.</p>
+<h2 id="a-look-back-the-core-vulnerability"><strong>A Look Back: The Core Vulnerability</strong></h2>
+<p>The root cause of the Balancer V2 incident was a precision loss bug within the smart contract logic that governed integer arithmetic calculations, particularly affecting pools containing assets that did not maintain a 1:1 ratio.</p>
+<h3 id="the-precision-loss-bug-in-the-_upscale-function">The Precision Loss Bug in the _upscale Function</h3>
+<p>The primary vulnerability resided in Balancer’s implementation of the Composable Stable Pool—a pool type designed for stable or correlated asset swaps (e.g., wstETH, ETH, osETH). Balancer introduced a scaling factor to manage related assets (e.g., 1 wstETH = 1.05 ETH). The issue occurred during the calculation of the scaled amount:</p>
+<blockquote>
+<p>(scaled_amount = (raw_amount * scaling_factor) / 1e18)</p>
+</blockquote>
+<p>When the raw token amount (raw_amount) was extremely small (e.g., 8 wei), the integer division in this formula could cause a precision loss of up to 12.5% (1/8).</p>
+<p>The function executed a rounding down operation after multiplication by the scaling factor. This rounding down created an arbitrage opportunity for the attacker, enabling them to swap out a small amount of output token while providing less input token than necessary to the pool.</p>
+<p>According to Verichain sources, this specific rounding-down behavior favoring the attacker was noted in the codebase comments, but the development team neglected to implement a fix because they underestimated the impact of the rounding error.</p>
+<p>Despite Balancer&#x27;s awareness of the vulnerability, they were unable to halt some vulnerable pools because these pools had exceeded the designated &quot;window of deployment&quot; allowing state and parameter changes. This limitation was due to Balancer’s commitment to maintaining strict decentralization.</p>
+<p>Remaining pools were quickly paused or drained. The initial attacker had left their compute contract code on-chain, allowing easy replication by copycat attackers who only needed to fork the code and change the pool address. This led to a surge of follow-up exploits within hours of the main attack.</p>
+<h3 id="the-internal-balance-mechanism">The Internal Balance Mechanism</h3>
+<p>While the Balancer internal balance feature itself was not the vulnerability, it was a crucial contributing factor that enabled the attacker to amplify the precision loss error significantly.</p>
+<p>Balancer’s mechanism allows users to flash-mint LP tokens (BPT) within a batchSwap, use them within the same transaction, and only settle the balance at the end. This meant the attacker could temporarily utilize the pool&#x27;s balance without needing explicit token flashloans.</p>
+<p>By leveraging these flash-minted BPTs, the attacker executed continuous swaps (BPT → token1 và BPT → token2) to manipulate the pool state, driving the raw balances of the tokens within the pool to become extremely small (around 40,000 wei).</p>
+<p>Making the raw token balances extremely small was the prerequisite condition for triggering maximum precision loss during the subsequent Precision-Loss Loop. After manipulation, the attacker repeatedly swapped between two tokens, optimizing for a small variable to create the maximum precision loss advantage on every iteration.</p>
+<h2 id="risk-assessment-post-balancer-re-evaluating-trust-and-code-vulnerability"><strong>Risk Assessment Post-Balancer: Re-evaluating Trust and Code Vulnerability</strong></h2>
+<h3 id="1-strict-control-over-rounding-and-arithmetic-precision">1. Strict Control Over Rounding and Arithmetic Precision</h3>
+<p>This is the most critical takeaway, as it represents the root cause. The _upscale function in Balancer rounded down after multiplying by the scaling factor, which consistently provided an advantage to the attacker on every swap. <strong><a href="../../services/smart-contract-development.html">Smart Contract Development</a></strong> teams must ensure that financial mathematical functions are designed to always round up or utilize rounding methods that favor the pool or the protocol.</p>
+<p>Concurrently, they must rigorously test edge cases where the raw token amount (raw_amount) is extremely small (e.g., 8 wei). In integer arithmetic, these minute values can lead to substantial, exploitable precision loss.</p>
+<h3 id="2-never-underestimate-the-impact-of-documented-bugs">2. Never Underestimate the Impact of Documented Bugs</h3>
+<p>The Balancer incident underscores the peril of neglecting known flaws. The rounding-down issue was documented in Balancer&#x27;s codebase comments. However, the development team bypassed fixing the bug because they underestimated the impact of this &quot;minor&quot; rounding error. The lesson is clear: any documented flaw, particularly within financial computation logic, must be prioritized for remediation, regardless of its perceived insignificance.</p>
+<h3 id="3-enhance-auditing-and-testing-of-complex-logic">3. Enhance Auditing and Testing of Complex Logic</h3>
+<p>DeFi protocols employing complex formulae require scrutiny beyond standard practices. Developers must conduct frequent security audits and thoroughly stress-test complex formulae and logic. Even a highly reputable protocol like Balancer, having undergone multiple audits, was susceptible to exploitation via a trivial rounding error.</p>
+<h3 id="4-manage-advanced-feature-risk">4. Manage Advanced Feature Risk</h3>
+<p>Features designed to optimize performance or usability can inadvertently introduce powerful attack vectors. The Internal Balances Mechanism, for instance, allowed the attacker to flash-mint BPTs temporarily and manipulate the pool state with minimal friction.</p>
+<p>When implementing advanced features like internal accounting mechanisms, developers must ensure they cannot be leveraged to set up exploit-triggering conditions (e.g., driving token balances to extremely low states, around 40,000 wei).</p>
+<h2 id="conclusion"><strong>Conclusion</strong></h2>
+<p>Balancer V2 serves as a stark warning to the entire DeFi industry, underscoring that frequent security audits and meticulous scrutiny of complex logic and formulae are paramount, and that developers must never underestimate the impact of rounding errors or dismiss documented flaws. For teams looking to secure their protocols against similar vulnerabilities, <strong><a href="../../index.html">Cyberk</a></strong> provides expert auditing and development services to ensure robust and secure DeFi infrastructure.</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "What We Can Learn from the $128M Balancer Attack",
+    "description": "This exploit is a wake-up call for every project writing economic logic in Solidity.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_8_909c979504.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/what-we-can-learn-from-the-128-m-balancer-attack"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

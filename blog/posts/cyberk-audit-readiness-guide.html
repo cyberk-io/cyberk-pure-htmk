@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyberk Audit Readiness Procedure | Cyberk Blog</title>
+  <meta name="description" content="We will provide a comprehensive guidance on the smart contract security audit process.">
+  <link rel="canonical" href="https://cyberk.io/blog/cyberk-audit-readiness-guide">
+  <meta property="og:title" content="Cyberk Audit Readiness Procedure | Cyberk Blog">
+  <meta property="og:description" content="We will provide a comprehensive guidance on the smart contract security audit process.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Audit_guide_f4735dbb8a.png">
+  <meta property="og:url" content="https://cyberk.io/blog/cyberk-audit-readiness-guide">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Cyberk Audit Readiness Procedure">
+  <meta name="twitter:description" content="We will provide a comprehensive guidance on the smart contract security audit process.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Audit_guide_f4735dbb8a.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Cyberk Audit Readiness Procedure</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 26, 2026</span>
+          <span>&middot;</span>
+          <span>11 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Audit_guide_f4735dbb8a.png" alt="Cyberk Audit Readiness Procedure" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>In modern DeFi, RWA, and DAO-based systems, smart contracts serve not only as transaction executors but as core infrastructure governing assets, protocol upgrades, and on-chain governance. These systems often secure significant economic value, rely on tightly coupled external dependencies (such as oracles, bridges, and third-party protocols), and evolve over time through upgradeable architectures and governance-controlled parameters.</p>
+<p>Within this threat landscape, a security audit is a critical risk-management control, designed to evaluate not only low-level implementation safety but also the robustness of the protocol’s economic design, governance model, and upgrade strategy before entering a production environment.</p>
+<p>In this article, we will provide a comprehensive guidance on the smart contract security audit process, from project preparation to risk classification and remediation. Combining in-depth manual analysis with automated tools, Cyberk helps projects build a robust security foundation before mainnet deployment.</p>
+<h2 id="part-1-security-audit-overview">Part 1 – Security Audit Overview</h2>
+<h3 id="11-what-is-a-security-audit">1.1 What is a Security Audit?</h3>
+<p>A security audit of smart contracts is a systematic, in-depth assessment of the codebase and system design with the goal of identifying exploitable weaknesses (vulnerabilities), business-logic errors, and unsafe or inefficient engineering practices. The core objective of an audit is to characterize the impact and exploit conditions, and to provide remediation guidance that is practical to implement.</p>
+<p>Methodologically, a rigorous audit involves:
+<strong>(i)</strong> evaluating the code against established security best practices and common vulnerability classes in Solidity/EVM.
+<strong>(ii)</strong> validating the implementation against the project’s specification and intent (e.g., PRD, whitepaper, technical documentation).
+<strong>(iii)</strong> reviewing the correctness of trust assumptions and critical invariants related to assets, permissions, and state transitions.</p>
+<p>In practice, modern audits combine manual review with automated tooling to broaden coverage, improve reviewer efficiency, and reduce the likelihood of omission.</p>
+<p>The primary deliverable of an audit is a report that consolidates findings with severity classification, impact analysis, reproduction guidance, and recommended fixes or mitigations. Audit effectiveness typically improves when the engagement is iterative and collaborative, enabling timely clarification and validation between auditors and the client engineering team.</p>
+<h3 id="12-when-should-you-get-an-audit">1.2 When should you get an audit</h3>
+<p>Once a smart contract is deployed to a public blockchain, it becomes accessible to any party, including malicious actors. Because on-chain systems are often difficult or impossible to roll back, successful exploits may result in irreversible financial losses and material reputational harm to the project and its users.</p>
+<p>From a risk-management perspective, Cyberk recommends scheduling audits at the following inflection points. First, prior to mainnet deployment, ideally after feature completion and testnet validation. Second, audits should be performed against a frozen code snapshot with a specific commit hash; changes after the audited snapshot may introduce new attack surfaces that are out of scope for the assessment. Third, when the protocol undergoes upgrades or introduces major features that affect core logic, a follow-up audit is considered best practice to ensure that changes do not degrade the system’s security properties.</p>
+<h3 id="13-how-to-prepare-before-a-security-audit">1.3 How to prepare before a security audit</h3>
+<p>Project readiness directly influences audit efficiency, depth, and overall cost. Prior to the engagement, the codebase should be modular, traceable, and stable, with a preference for well-established and widely vetted libraries. During the audit window, large architectural or feature changes should be minimized to avoid scope drift and to reduce the likelihood of introducing new, unreviewed risk.</p>
+<p>From a documentation standpoint, the project should provide a sufficiently detailed specification that clearly articulates business logic, critical invariants, trust assumptions, allowed and disallowed behaviors, the authorization model (roles/permissions), and privileged operational actions. This documentation is essential for mapping “intended behavior” to “implemented behavior” and for assessing logic risks that cannot be reliably inferred from code inspection alone.</p>
+<p>With respect to testing, a high-quality test suite—covering happy paths as well as edge and negative cases—clarifies behavioral expectations and reduces time spent validating baseline mechanics, enabling deeper focus on subtle risks (e.g., economic invariants, boundary conditions, integration behavior). Auditors typically execute the test suite early in the engagement to understand system mechanics and confirm environment reproducibility. Finally, an audit is a security-strengthening measure, not a substitute for engineering ownership; production quality remains the responsibility of the development team, and strong engineering practices, tests, and documentation are prerequisites for a high-impact audit.</p>
+<h3 id="14-what-is-a-typical-cyberk-audit-look-like">1.4 What is a typical Cyberk audit look like?</h3>
+<p>A typical Cyberk audit begins with two foundational activities: intake and scoping. During intake, the client provides repository access, the target commit hash, relevant documentation/specifications, build and test instructions, timeline requirements, and technical points of contact. Cyberk then performs scoping to evaluate the codebase size and complexity, the architecture and threat surface, external dependencies and integrations, and the completeness of documentation and test coverage.</p>
+<p>The outcome of scoping is an engagement plan and an estimated schedule aligned with risk and complexity. Cyberk encourages early engagement; scoping can be initiated when implementation is approximately 85–90% complete, provided that the core flows and architecture are stable.</p>
+<h3 id="15-the-audit-process">1.5 The Audit process</h3>
+<p>Cyberk’s audit process is designed to balance depth (manual review) and breadth (automation), while maintaining a tight communication loop with the client engineering team to resolve ambiguities and to escalate critical issues in a timely manner:</p>
+<h4 id="151-roles-collaboration-model">1.5.1 Roles &amp; collaboration model</h4>
+<p>Engagements typically involve multiple auditors to provide “positive redundancy”, i.e., independent review tracks with reconciliation to reduce the risk of omission. The client team should designate engineering point(s) of contact (POCs) to validate assumptions, support build/test execution, and coordinate remediation. A dedicated communication channel (as agreed—Slack/Discord/email, etc.) is established for continuous Q&amp;A and for rapid escalation of severe findings.</p>
+<h4 id="152-methodology-what-we-do">1.5.2 Methodology (what we do)</h4>
+<p>Methodologically, Cyberk applies a consistent sequence of activities. First, the audit team establishes a reproducible environment, including build instructions, dependency versions, operational scripts, and environment notes. Next, the team performs specification mapping to link requirements and expected properties to concrete code paths and invariants.</p>
+<p>On that foundation, automated techniques (static analysis, linting, pattern scanning) are used to efficiently identify common issues and unsafe patterns. In parallel, manual review focuses on high-risk areas, including but not limited to:
+<strong>(i)</strong> access control and privilege boundaries,
+<strong>(ii)</strong> economic and security invariants and business logic,
+<strong>(iii)</strong> external interactions, reentrancy surfaces, and integration assumptions, and (iv) upgradeability mechanisms, administrative functions, and emergency controls.
+Finally, adversarial analysis is applied to reason about attacker behavior and edge cases beyond nominal “happy path” execution.</p>
+<h4 id="153-deliverables">1.5.3 Deliverables</h4>
+<p>Audit deliverables typically include:</p>
+<ul>
+<li>A preliminary findings report describing each issue with severity, impact, reproduction guidance, and recommendations</li>
+<li>An optional walkthrough session to discuss key findings with the client</li>
+<li>A fix review to verify remediation changes for in-scope findings (timeboxed per agreement)</li>
+<li>A final report that records the concluding status of each finding and summarizes remaining recommendations.</li>
+</ul>
+<h4 id="154-finding-lifecycle-statuses">1.5.4 Finding lifecycle &amp; statuses</h4>
+<p>Each finding is tracked throughout its lifecycle and assigned a status that reflects its resolution outcome at the conclusion of the engagement. A finding marked as <strong>Fixed</strong> indicates that the underlying issue has been fully remediated and verified in the codebase. <strong>Mitigated</strong> denotes that the associated risk has been reduced to an acceptable level through design changes or operational controls, even if the root cause is not entirely removed. Findings categorized as <strong>Acknowledged</strong> represent a documented and informed decision by the client to accept the identified risk. Finally, <strong>Unresolved</strong> indicates that the issue remains present and unaddressed at the end of the audit engagement.</p>
+<h4 id="155-severity-guideline-recommended">1.5.5 Severity guideline (recommended)</h4>
+<p>To prioritize remediation, Cyberk applies a severity model grounded in exploitability and impact. <strong>Critical</strong> findings may lead to loss of funds, protocol takeover, or catastrophic failure. <strong>High</strong> findings have significant exploitability or materially break economic or security properties under realistic conditions. <strong>Medium</strong> findings are typically exploitable under more constrained assumptions but remain meaningful weaknesses that warrant remediation. <strong>Low</strong> findings represent minor risks, edge-case defects, or defense-in-depth improvements. <strong>Informational</strong> items capture best practices and improvements in style, clarity, or non-security aspects.</p>
+<h3 id="16-security-consultation-community-driven-security-efforts">1.6 Security consultation, community-driven security efforts</h3>
+<p>In many cases, a project’s security needs extend beyond a single audit. Cyberk may provide ongoing security consultation as the protocol evolves, including design reviews, pre-deployment checks, and tailored risk-mitigation guidance. In addition, bug bounty programs can mobilize community review and establish incentives for responsible disclosure. Finally, post-deployment real-time monitoring is an important layer for detecting anomalous behavior and potential attacks, particularly during sensitive periods such as initial launch, upgrades, or governance-related events.</p>
+<h2 id="part-2-audit-readiness">Part 2 – Audit Readiness</h2>
+<h3 id="21-project-specification-checklist">2.1 Project Specification Checklist</h3>
+<p>Good documentation is essential for a successful audit: it accelerates onboarding, reduces ambiguity, and provides evidence for findings and recommendations.</p>
+<ul>
+<li>Summarize intended functionality and features (e.g., token, staking, governance).</li>
+<li>Link supporting artifacts (unit tests, requirements, specs, whitepaper, diagrams).</li>
+<li>State assumptions, design decisions, and any non-standard practices.</li>
+<li>Document trust model and trusted actors (if not fully trustless):</li>
+<li>Who is trusted?</li>
+<li>What are they trusted with?</li>
+<li>What actions can each party perform?</li>
+<li>Document key users and stakeholders and expected integrations.</li>
+<li>List external libraries/resources and integration assumptions:</li>
+<li>Example: “ERC20 only, no ERC777 callbacks”</li>
+<li>Example: “ERC20 with 18 decimals only”</li>
+<li>Document functional and non-functional requirements of the contracts.</li>
+</ul>
+<p><strong>Examples of strong public documentation:</strong></p>
+<ul>
+<li>MakerDAO Technical Docs: <a href="https://docs.makerdao.com/">https://docs.makerdao.com/</a></li>
+<li>Kiln: <a href="http://docs.kiln.fi/">http://docs.kiln.fi/</a></li>
+</ul>
+<h3 id="22-general-code-checklist">2.2 General code checklist</h3>
+<p>Code hygiene and best practices reduce complexity and audit risk.</p>
+<ul>
+<li>Use the latest major compiler version appropriate for your stack.</li>
+<li>Prefer established and well-tested libraries where possible (e.g., OpenZeppelin).</li>
+<li>Ensure the project compiles without warnings/errors.</li>
+<li>Provide exact build/test instructions and implicit dependency versions (e.g., Node/npm, Foundry/Hardhat).</li>
+<li>Document public/external functions inline (prefer NatSpec for Solidity).</li>
+<li>Ensure code and documentation are in English (or provide reliable translations).</li>
+<li>Run a spellchecker on documentation and comments (helps reviewers and users).</li>
+<li>Run static analysis tooling (e.g., Slither) and review output (false positives are common but useful).</li>
+<li>Have an experienced external reviewer perform a sanity check before the formal audit.</li>
+</ul>
+<p><strong>Helpful references:</strong></p>
+<ul>
+<li>Solidity style guide: <a href="https://docs.soliditylang.org/en/v0.8.19/style-guide.html">https://docs.soliditylang.org/en/v0.8.19/style-guide.html</a></li>
+<li>NatSpec format: <a href="https://docs.soliditylang.org/en/develop/natspec-format.html">https://docs.soliditylang.org/en/develop/natspec-format.html</a></li>
+<li>Slither: <a href="https://github.com/crytic/slither">https://github.com/crytic/slither</a></li>
+</ul>
+<h3 id="23-solidity-specific-checklist">2.3 Solidity Specific checklist</h3>
+<ul>
+<li>Limit Ether custody where possible; avoid accidental value sinks.</li>
+<li>Prefer external over public for functions that do not need internal calls (gas + safety surface).</li>
+<li>Avoid assembly unless absolutely necessary; it increases audit complexity and removes guardrails.</li>
+<li>Document each unchecked  usage and why it is safe for that operation.</li>
+<li>Follow Checks-Effects-Interactions (and/or reentrancy guards) to reduce reentrancy risk; treat all asset transfers as “interactions”.</li>
+</ul>
+<p><strong>Helpful reference:</strong></p>
+<ul>
+<li>Checks-Effects-Interactions pattern: <a href="https://docs.soliditylang.org/en/v0.8.13/security-considerations.html#use-the-checks-effects-interactions-pattern">https://docs.soliditylang.org/en/v0.8.13/security-considerations.html#use-the-checks-effects-interactions-pattern</a></li>
+</ul>
+<h3 id="24-test-checklist">2.4 Test Checklist</h3>
+<p>Testing is crucial for high-quality projects and reducing bugs. Both happy-path and edge cases should be covered.</p>
+<ul>
+<li>Provide an extensive test suite; tests express intent and assure quality.</li>
+<li>Provide step-by-step instructions for running tests (including environment notes).</li>
+<li>Ensure all tests pass on the target commit hash.</li>
+<li>Include “happy path” coverage for key user stories.</li>
+<li>Include access-control tests for all roles (owners/admins vs non-owners).</li>
+<li>Include negative tests (e.g., enforce time-locks, caps, and invalid-state reverts).</li>
+<li>Measure coverage (e.g., solidity-coverage), aiming for strong branch coverage (good projects often target 90%+ per category).</li>
+<li>If integrating external protocols, include mainnet-fork tests to validate integration points.</li>
+</ul>
+<p><strong>Helpful reference:</strong></p>
+<ul>
+<li>solidity-coverage: <a href="https://www.npmjs.com/package/solidity-coverage">https://www.npmjs.com/package/solidity-coverage</a></li>
+</ul>
+<h3 id="25-audit-scoping-checklist">2.5 Audit Scoping checklist</h3>
+<ul>
+<li>Identify the target completion date and any constraints (e.g., exchange listing, investor deadlines).</li>
+<li>Provide repo location and <strong>exact commit hash</strong> to be audited; ensure auditor access is available.</li>
+<li>Specify audited folders/files if not the entire repository.</li>
+<li>State production readiness expectations and whether previous findings/reviews have been addressed.</li>
+<li>State reporting needs (branding, confidentiality/public release) and any legal/compliance constraints.</li>
+</ul>
+<h1 id="conclusion-and-security-considerations">Conclusion and Security Considerations</h1>
+<p>In summary, an effective smart contract security audit is a collaborative, risk-driven process that extends beyond the identification of isolated vulnerabilities. By combining rigorous methodology, clear documentation, disciplined engineering practices, and continuous communication, Cyberk’s audit approach aims to surface meaningful security, logic, and economic risks while providing actionable guidance for remediation.</p>
+<p>Strong audit outcomes depend not only on the depth of the review, but also on the project’s readiness, transparency of assumptions, and commitment to security ownership. Ultimately, a well-executed audit serves as a critical safeguard for DeFi, RWA, and DAO systems, helping teams deploy and evolve protocols with greater confidence in the safety, resilience, and long-term integrity of their on-chain infrastructure.</p>
+<p>To learn more about Cyberk, visit the<a href="../../index.html"> Cyberk website</a> and follow the <a href="https://x.com/cyberkService">official Cyberk Twitter</a> to keep up with the latest news and announcements.</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Cyberk Audit Readiness Procedure",
+    "description": "We will provide a comprehensive guidance on the smart contract security audit process.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Audit_guide_f4735dbb8a.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 26, 2026",
+    "url": "https://cyberk.io/blog/cyberk-audit-readiness-guide"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

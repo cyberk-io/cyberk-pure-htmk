@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | Cyberk - Blockchain Development Insights</title>
+  <meta name="description" content="Read the latest insights on blockchain development, Web3 trends, smart contracts, and startup MVPs from the Cyberk team.">
+  <link rel="canonical" href="https://cyberk.io/blog/">
+  <meta property="og:title" content="Blog | Cyberk - Blockchain Development Insights">
+  <meta property="og:description" content="Read the latest insights on blockchain development, Web3 trends, smart contracts, and startup MVPs from the Cyberk team.">
+  <meta property="og:image" content="https://cyberk.io/assets/images/thumbnail-banner.png">
+  <meta property="og:url" content="https://cyberk.io/blog/">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Blog | Cyberk - Blockchain Development Insights">
+  <meta name="twitter:description" content="Read the latest insights on blockchain development, Web3 trends, and startup MVPs.">
+  <meta name="twitter:image" content="https://cyberk.io/assets/images/thumbnail-banner.png">
+  <link rel="icon" href="../assets/images/favicon.png">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/layout.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <style>
+    .blog-hero { padding: 8rem 0 3rem; background: var(--color-bg-gray); text-align: center; }
+    .blog-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; }
+    @media (min-width: 768px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1024px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
+    .blog-card { background: #fff; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-soft); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; text-decoration: none; color: inherit; }
+    .blog-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card); }
+    .blog-card-image { width: 100%; height: 200px; object-fit: cover; }
+    .blog-card-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+    .blog-card-tag { display: inline-block; font-size: 0.75rem; font-weight: var(--fw-medium); color: var(--red-2); background: var(--color-bg-pink-2); padding: 0.25rem 0.75rem; border-radius: 999px; margin-bottom: 0.75rem; width: fit-content; }
+    .blog-card-title { font-size: 1.125rem; font-weight: var(--fw-medium); margin-bottom: 0.75rem; line-height: 1.4; }
+    .blog-card-excerpt { font-size: 0.875rem; font-weight: var(--fw-light); color: var(--color-text-muted); line-height: 1.6; flex: 1; }
+    .blog-card-meta { margin-top: 1rem; font-size: 0.75rem; color: var(--color-text-light); font-weight: var(--fw-extralight); }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../services/mvp-development.html">MVP Development</a>
+            <a href="../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../about-us.html">About Us</a>
+        <a href="../blog/index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-hero">
+      <div class="container">
+        <h1 style="margin-bottom:1rem;">Blog</h1>
+        <p style="font-size:clamp(0.875rem,1.5vw,1.25rem);font-weight:300;max-width:600px;margin:0 auto;color:var(--color-text-secondary);">
+          Insights on blockchain development, Web3 trends, and building successful startups from the Cyberk team.
+        </p>
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;">
+      <div class="container">
+        <div class="blog-grid">
+            <a href="posts/ai-agents-are-making-millions-on-polymarket.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Polymarket_3a6e168564.png" alt="AI Agents Are Making Millions on Polymarket" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">AI &amp; Agent Systems</span>
+                <h2 class="blog-card-title">AI Agents Are Making Millions on Polymarket</h2>
+                <p class="blog-card-excerpt">An AI agent can turn Polymarket inefficiencies into repeatable profit.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 5 min read</p>
+              </div>
+            </a>
+            <a href="posts/nft-strategy-a-new-nft-fi-paradigm.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_7_25446a9129.png" alt="NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Architecture &amp; Build</span>
+                <h2 class="blog-card-title">NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks</h2>
+                <p class="blog-card-excerpt">NFT Strategy is poised to create a new revolution for NFTs.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 5 min read</p>
+              </div>
+            </a>
+            <a href="posts/if-2026-is-a-bear-market-de-fi-will-split-in-two.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_12_04ed6c4f25.png" alt="If 2026 Is a Bear Market, DeFi Will Split in Two" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Industry Insights &amp; Research</span>
+                <h2 class="blog-card-title">If 2026 Is a Bear Market, DeFi Will Split in Two</h2>
+                <p class="blog-card-excerpt">Which form of DeFi will endure and thrive, especially in a potential bear market scenario in 2026.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 6 min read</p>
+              </div>
+            </a>
+            <a href="posts/why-are-proprietary-am-ms-is-dominating-solana.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_116f3ab4b3.png" alt="Why Are Proprietary AMMs Is Dominating Solana?" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Industry Insights &amp; Research</span>
+                <h2 class="blog-card-title">Why Are Proprietary AMMs Is Dominating Solana?</h2>
+                <p class="blog-card-excerpt">Solana&#x27;s liquidity structure is being rebuilt around a new model - Proprietary AMMs.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 12 min read</p>
+              </div>
+            </a>
+            <a href="posts/stablecoin-playbook-for-ct-os-choosing-an-issuance-model-and-an-operating-architecture.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_2_190faeba26.png" alt="Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Stablecoin</span>
+                <h2 class="blog-card-title">Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture</h2>
+                <p class="blog-card-excerpt">Stablecoin in nature is a financial product with a balance sheet and an on-chain interface.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 10 min read</p>
+              </div>
+            </a>
+            <a href="posts/how-cyberk-build-a-indexer-with-million-qps-in-30-days.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/How_to_build_an_Indexer_999b85a978.png" alt="How Cyberk Build an Indexer with Million QPS in 30 Days" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Architecture &amp; Build</span>
+                <h2 class="blog-card-title">How Cyberk Build an Indexer with Million QPS in 30 Days</h2>
+                <p class="blog-card-excerpt">Let&#x27;s explore how such an architecture is built to make million-QPS indexing possible.</p>
+                <p class="blog-card-meta">January 8, 2026 &middot; 9 min read</p>
+              </div>
+            </a>
+            <a href="posts/cyberk-audit-readiness-guide.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Audit_guide_f4735dbb8a.png" alt="Cyberk Audit Readiness Procedure" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Blockchain Development</span>
+                <h2 class="blog-card-title">Cyberk Audit Readiness Procedure</h2>
+                <p class="blog-card-excerpt">We will provide a comprehensive guidance on the smart contract security audit process.</p>
+                <p class="blog-card-meta">January 26, 2026 &middot; 11 min read</p>
+              </div>
+            </a>
+            <a href="posts/from-kyc-to-zkp-de-pin.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Biometrics_72e09089ed.png" alt="From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Blockchain Development</span>
+                <h2 class="blog-card-title">From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication</h2>
+                <p class="blog-card-excerpt">Biometric verification built on the Blockchain significantly helps mitigate DePIN risk factors.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 6 min read</p>
+              </div>
+            </a>
+            <a href="posts/trad-fi-x-de-fi-unifying-to-shape-the-rwa-market.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_1_b54fbf030d.png" alt="TradFi x DeFi: Unifying to Shape the RWA Market" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">RWA</span>
+                <h2 class="blog-card-title">TradFi x DeFi: Unifying to Shape the RWA Market</h2>
+                <p class="blog-card-excerpt">Let&#x27;s find out a CTO viewpoint about the relations between TradFi x DeFi in RWA Markets.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 7 min read</p>
+              </div>
+            </a>
+            <a href="posts/kohaku-the-new-sdk-frameworks-that-bring-real-privacy-to-ethereum.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_10_3434bcd9b4.png" alt="Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Blockchain Development</span>
+                <h2 class="blog-card-title">Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum</h2>
+                <p class="blog-card-excerpt">Cyberk explores how Kohaku SDK framework brings default privacy and ZK security to every wallet.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 7 min read</p>
+              </div>
+            </a>
+            <a href="posts/what-we-can-learn-from-the-128-m-balancer-attack.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_8_909c979504.png" alt="What We Can Learn from the $128M Balancer Attack" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Blockchain Development</span>
+                <h2 class="blog-card-title">What We Can Learn from the $128M Balancer Attack</h2>
+                <p class="blog-card-excerpt">This exploit is a wake-up call for every project writing economic logic in Solidity.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 6 min read</p>
+              </div>
+            </a>
+            <a href="posts/turnning-a-redemption-queue-into-a-numeric-comparison-with-mathematical-accumulation-in-a-stablecoin-project.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_3_f7913173fa.png" alt="Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Stablecoin</span>
+                <h2 class="blog-card-title">Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation</h2>
+                <p class="blog-card-excerpt">Today, we want to share how we optimized the redemption process for a Stablecoin project.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 5 min read</p>
+              </div>
+            </a>
+            <a href="posts/designing-a-stablecoin-protocol-with-mathematical-accumulation-on-evm.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_6_7bf0b1ec1b.png" alt="Designing a Stablecoin Protocol with Mathematical Accumulation on EVM" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Architecture &amp; Build</span>
+                <h2 class="blog-card-title">Designing a Stablecoin Protocol with Mathematical Accumulation on EVM</h2>
+                <p class="blog-card-excerpt">In this article, Cyberk will outline a practical design for a stablecoin backed by USDC/USDT.</p>
+                <p class="blog-card-meta">January 29, 2026 &middot; 5 min read</p>
+              </div>
+            </a>
+            <a href="posts/top-blockchain-development-services-for-startups-choosing-the-best-providers-for-acceleration.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Top_blockchain_services_for_startups_c38b7a6672.png" alt="Top Blockchain Development Services for Startups" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Web3 &amp; Startup</span>
+                <h2 class="blog-card-title">Top Blockchain Development Services for Startups</h2>
+                <p class="blog-card-excerpt">The fast, scalable blockchain development services for startups and enterprises.</p>
+                <p class="blog-card-meta">March 5, 2026 &middot; 7 min read</p>
+              </div>
+            </a>
+            <a href="posts/realistic-and-sustainable-apr-in-de-fi-in-2026.html" class="blog-card">
+              <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_11_14a5077bde.png" alt="What&#x27;s a Realistic &amp; Sustainable APR in DeFi - in 2026" class="blog-card-image" loading="lazy">
+              <div class="blog-card-body">
+                <span class="blog-card-tag">Industry Insights &amp; Research</span>
+                <h2 class="blog-card-title">What&#x27;s a Realistic &amp; Sustainable APR in DeFi - in 2026</h2>
+                <p class="blog-card-excerpt">At Cyberk, we&#x27;ve been closely monitoring yield markets for DeFi build &amp; investments.</p>
+                <p class="blog-card-meta">February 27, 2026 &middot; 9 min read</p>
+              </div>
+            </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../about-us.html">About us</a></li>
+              <li><a href="../services/index.html">Service</a></li>
+              <li><a href="../blog/index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "name": "Cyberk",
+        "url": "https://cyberk.io",
+        "logo": "https://cyberk.io/assets/icons/cyberk-logo.svg"
+      },
+      {
+        "@type": "WebSite",
+        "name": "Cyberk",
+        "url": "https://cyberk.io"
+      },
+      {
+        "@type": "CollectionPage",
+        "name": "Cyberk Blog",
+        "description": "Insights on blockchain development, Web3 trends, and building successful startups",
+        "url": "https://cyberk.io/blog/"
+      }
+    ]
+  }
+  </script>
+
+  <script src="../js/main.js" defer></script>
+</body>
+</html>

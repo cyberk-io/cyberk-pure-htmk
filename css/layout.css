@@ -1,0 +1,72 @@
+/* ============================================
+   Layout — Containers, Grid, Utilities
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+@media (min-width: 768px) {
+  .container { padding: 0 2.5rem; }
+}
+@media (min-width: 1024px) {
+  .container { padding: 0; }
+}
+
+.container-narrow { max-width: var(--max-width-narrow); }
+.container-wide { max-width: var(--max-width-wide); }
+
+/* ---- Grid ---- */
+.grid { display: grid; gap: 1.5rem; }
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+.grid-4 { grid-template-columns: 1fr; }
+
+@media (min-width: 768px) {
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+}
+@media (min-width: 1024px) {
+  .grid-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* ---- Flex ---- */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-center { align-items: center; justify-content: center; }
+.flex-between { justify-content: space-between; }
+.flex-wrap { flex-wrap: wrap; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.gap-2 { gap: 0.5rem; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
+.gap-8 { gap: 2rem; }
+.gap-12 { gap: 3rem; }
+
+/* ---- Section Spacing ---- */
+.section {
+  padding: 3.75rem 0;
+}
+@media (min-width: 768px) {
+  .section { padding: 2.5rem 0; }
+}
+@media (min-width: 1024px) {
+  .section { padding: 6rem 0; }
+}
+
+.section-lg { padding: 3.75rem 0; }
+@media (min-width: 1024px) {
+  .section-lg { padding: 6.25rem 0; }
+}
+
+/* ---- Visibility ---- */
+.hide-mobile { display: none; }
+@media (min-width: 768px) { .hide-mobile { display: block; } }
+@media (min-width: 768px) { .hide-tablet { display: none; } }
+@media (min-width: 1024px) { .hide-tablet { display: block; } }
+.show-mobile { display: block; }
+@media (min-width: 1024px) { .show-mobile { display: none; } }

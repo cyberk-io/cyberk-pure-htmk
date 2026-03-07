@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designing a Stablecoin Protocol with Mathematical Accumulation on EVM | Cyberk Blog</title>
+  <meta name="description" content="In this article, Cyberk will outline a practical design for a stablecoin backed by USDC/USDT.">
+  <link rel="canonical" href="https://cyberk.io/blog/designing-a-stablecoin-protocol-with-mathematical-accumulation-on-evm">
+  <meta property="og:title" content="Designing a Stablecoin Protocol with Mathematical Accumulation on EVM | Cyberk Blog">
+  <meta property="og:description" content="In this article, Cyberk will outline a practical design for a stablecoin backed by USDC/USDT.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_6_7bf0b1ec1b.png">
+  <meta property="og:url" content="https://cyberk.io/blog/designing-a-stablecoin-protocol-with-mathematical-accumulation-on-evm">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Designing a Stablecoin Protocol with Mathematical Accumulation on EVM">
+  <meta name="twitter:description" content="In this article, Cyberk will outline a practical design for a stablecoin backed by USDC/USDT.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_6_7bf0b1ec1b.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Designing a Stablecoin Protocol with Mathematical Accumulation on EVM</h1>
+        <div class="blog-post-meta">
+          <span>Kanz</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>5 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_6_7bf0b1ec1b.png" alt="Designing a Stablecoin Protocol with Mathematical Accumulation on EVM" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>If you are building stablecoin contracts (or any on-chain withdrawal mechanism), you will eventually run into a big problem: the <strong>queue</strong>. When traffic is low, a queue can “work”, but when users grow by tens of times (or even hundreds of times), that “working” queue turns into a gas-burning machine: transactions fail, latency stretches, and the dev team ends up running an “operator job to clear the queue”. Technically, this is a major weakness: it’s slow, easier to attack, and it tends to require frequent hotfixes.</p>
+<p>In this article, I’ll outline a practical design for a stablecoin backed by USDC/USDT, optimized for EVM. It uses two lanes: a fast lane for better UX, and a queue lane to protect liquidity. The key difference is that the queue lane does not run as a procedural queue (array/linked list/pointer). Instead, I turn the queue into a <strong>numeric comparison</strong> problem using a mathematical accumulation model, so claim/settle stays (O(1)).</p>
+<h2 id="why-avoid-procedural-queues"><strong>Why avoid procedural queues?</strong></h2>
+<p>In traditional contracts, a legacy queue forces the contract to iterate through each request, handle a bunch of edge cases (like partial payouts), and often requires a separate cleanup transaction. The result is gas growth (O(n)) (the deeper the request, the more expensive), many state branches that are easy to get wrong, and operational complexity (you end up relying on keepers/operators). My principle is: <em>don’t optimize the queue by writing more queue-management code</em>. Change the model so the queue disappears from the hot path.</p>
+<h2 id="a-cyberk-way-redemption-design"><strong>A “Cyberk-way” Redemption Design</strong></h2>
+<p>Our redemption design is different in that it has two lanes. The first lane is <strong>instant redemption</strong> — immediate payout for good UX — but it is capped at <strong>0.5% total supply / day</strong> so the system can’t be drained by a bank run.</p>
+<p>You can think of this lane as a rate limit tied to the system’s scale: the larger the supply, the larger the “reasonable” fast-lane liquidity. Implementation-wise, you only need a day window by timestamp: <code>dayId = floor(block.timestamp / 1 days)</code>, a daily cap <code>instantCap = totalSupply * 0.005</code>, and an accumulator <code>instantRedeemedToday[dayId]</code>.</p>
+<p>If a request fits within the cap and the oracle is healthy, it is paid instantly. If it exceeds the cap, it automatically goes into the queue.</p>
+<p>The second lane is <strong>queue redemption</strong> for the portion beyond the cap. This lane protects liquidity and lets you process disbursements in batches as the vault releases liquidity. But I don’t “manage a queue”. I turn it into a <strong>comparison between two numbers</strong>. The intuition is simple: treat requests as “segments” on a cumulative number line; settlement is just checking how far capital has flowed on that line.</p>
+<p>To do this, we define request (i) with size (r_i), and disbursement (j) (from the vault into the contract) with size (d_j). We have two accumulation functions:</p>
+<ul>
+<li>(R(n) = \sum_{i=1}^{n} r_i)</li>
+<li>(D(m) = \sum_{j=1}^{m} d_j)</li>
+</ul>
+<p>On-chain, the minimal hot-path state is just two accumulators: <code>totalRequested</code> (\approx R(n)) and <code>totalDisbursed</code> (\approx D(current)). When creating request (n), I snapshot the cumulative total at that moment:</p>
+<ul>
+<li>(S_n = R(n))</li>
+</ul>
+<p>So request (n) occupies a “liquidity window” on the number line:</p>
+<ul>
+<li>window (n) is ([R(n-1), R(n)])</li>
+</ul>
+<p>The key point is that (S_n) increases with request creation order, so FIFO becomes a <strong>property of the model</strong> rather than something you “maintain” with pointers. From here, claim/settle becomes a simple comparison. When a user claims request (n), we compare <code>totalDisbursed</code> against the snapshot:</p>
+<ul>
+<li>(D_{current} \ge S_n)</li>
+<li>(S_{n-1} &lt; D_{current} &lt; S_n)</li>
+<li>(\Delta = D_{current} - S_{n-1})</li>
+</ul>
+<p>In this setup, the first case is a full claim, the second case is a partial claim, and (\Delta) is the amount of liquidity that has “covered” the request window. To make it idempotent and prevent double-claiming, each request stores <code>claimedSoFar</code>, and the execution formula is <code>claimable = min(covered, amount) - claimedSoFar</code> (floored at 0). The result is no loops, no queue clearing, and no &quot;to claim request #90 you must process 1–89 first.&quot;</p>
+<p>Operationally, this EVM-first design makes two decisions to keep accounting clean and audit-friendly.</p>
+<p>First, <strong>burn the stablecoin immediately when creating a redemption request</strong>. The user calls <code>redeem(amount, preferInstant)</code>, the contract burns right away; if the instant conditions are met, it pays collateral immediately; otherwise it creates a queued request with snapshot (S_n). Burning immediately makes supply reflect redemption demand (especially important since you use supply to compute the 0.5%/day cap).</p>
+<p>Second, <strong>liquidity comes from the vault</strong>: <code>totalDisbursed</code> only increases when collateral actually arrives from the vault into the contract. The critical rule is to never increase <code>totalDisbursed</code> unless collateral has been received, to avoid “accounting-only disbursements” that could overpay the system’s real liquidity.</p>
+<p>Finally, you need a defensive layer for depeg scenarios. If you’re backed by USDC/USDT, your peg risk is tied to the collateral. You can’t “beat depegs” with code, but you can slow down bank-run dynamics and protect liquidity.</p>
+<p>Policy-wise: if the oracle price &lt; <strong>0.99</strong>, then <strong>disable mint</strong> and <strong>disable instant redemption</strong>, while the queue still accepts requests so the system doesn’t fully freeze; claim/disburse runs behind guards and fails closed when the oracle is stale/down. For the oracle, you need at minimum a staleness guard (updatedAt) and fail-closed behavior on abnormal data.</p>
+<p>If you want the contract to be “battle-tested”, then don’t rely on vibe coding. Lock invariants and write property tests/fuzzing like <code>totalRequested</code> and <code>totalDisbursed</code> must be monotonic; snapshots must increase by request order.</p>
+<p>The <code>claimedSoFar</code> function must not exceed <code>amount</code>, total payouts must not exceed <code>totalDisbursed</code>, and the daily cap must never be exceeded. At that point, the queue is no longer a “data structure problem”. It becomes a question of “how far capital has flowed” — a numerical problem.</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Designing a Stablecoin Protocol with Mathematical Accumulation on EVM",
+    "description": "In this article, Cyberk will outline a practical design for a stablecoin backed by USDC/USDT.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_6_7bf0b1ec1b.png",
+    "author": {
+      "@type": "Person",
+      "name": "Kanz"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/designing-a-stablecoin-protocol-with-mathematical-accumulation-on-evm"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

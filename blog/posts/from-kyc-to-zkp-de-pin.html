@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication | Cyberk Blog</title>
+  <meta name="description" content="Biometric verification built on the Blockchain significantly helps mitigate DePIN risk factors.">
+  <link rel="canonical" href="https://cyberk.io/blog/from-kyc-to-zkp-de-pin">
+  <meta property="og:title" content="From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication | Cyberk Blog">
+  <meta property="og:description" content="Biometric verification built on the Blockchain significantly helps mitigate DePIN risk factors.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Biometrics_72e09089ed.png">
+  <meta property="og:url" content="https://cyberk.io/blog/from-kyc-to-zkp-de-pin">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication">
+  <meta name="twitter:description" content="Biometric verification built on the Blockchain significantly helps mitigate DePIN risk factors.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Biometrics_72e09089ed.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>6 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Biometrics_72e09089ed.png" alt="From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>The global market for DePIN projects is expected to surpass <a href="https://depinscan.io/">$32 billion</a> by the end of the year, driven by growing interest in decentralizing critical physical infrastructure such as energy grids, wireless networks, and data storage.</p>
+<p>DePIN is forecasted for exponential growth over the next 3 to 5 years. One of the most anticipated applications is biometric authentication. Unlike traditional KYC models, biometric verification built on the Blockchain significantly helps mitigate risk factors.</p>
+<h2 id="advancing-the-verification-framework">Advancing the Verification Framework</h2>
+<p>Imagine a blockchain that supports social login and biometric authentication — yet in a self-custodial manner. Imagine being able to recover a lost account/wallet without compromising security or your phrase key. Imagine a system where sponsored transactions are natively built-in, so every user without native tokens can interact seamlessly.</p>
+<p>Beyond this, Cyberk is also advancing its prots with initiatives that raise the bar even higher: high-performance programmable storage protocols, frameworks that ensure data privacy and access control, and a next-gen network that enables validators to communicate more securely.</p>
+<p>To understand this approach deeply, it is necessary to review the fundamentals of <strong>DePIN</strong> and <strong>Zk-proof</strong> technology — the two building blocks underpinning this framework.</p>
+<h2 id="the-correlation-between-depin-and-zk-proof">The Correlation between DePIN and Zk-proof</h2>
+<p><a href="https://hacken.io/discover/decentralized-physical-infrastructure/">DePIN (Decentralized Physical Infrastructure Network)</a> is a network of blockchain protocols engineered to facilitate the entire lifecycle management (including development, maintenance, and operation) of physical hardware infrastructure via a decentralized and open-source architecture.</p>
+<p><a href="https://chain.link/education/zero-knowledge-proof-zkp">zk-proof (Zero-Knowledge Proof)</a> is a cryptographic primitive where a Prover can mathematically demonstrate to a Verifier that a specific statement (or “witness”) is true, without revealing any information about the statement itself beyond its validity.</p>
+<p>Consequently, ZKP is widely applied in authentication, biometrics, and security.</p>
+<p>DePIN and Zero-Knowledge Proof (ZKP) technology are intimately linked in building secure and robust decentralized systems. ZKP helps DePIN verify user data and access rights without disclosing sensitive information, thereby enhancing privacy and mitigating security risks within decentralized physical infrastructure networks.</p>
+<h2 id="mechanism-of-operation-i-face-id-verification">Mechanism of Operation I: Face ID Verification</h2>
+<p>In the field of biometrics and DePIN, <strong>Zero-Knowledge Proof (ZKP)</strong> technology is utilized to encrypt private data by employing a <a href="https://www.okta.com/identity-101/hashing-algorithms/"><strong>hashing algorithm</strong></a>, transforming the face into an encrypted vector without revealing the user’s actual image or identity.</p>
+<p>This data is then confirmed by validators using ZKP, which helps protect privacy and ensure security during identity verification without exposing personal information, while simultaneously maintaining transparency and trust within the decentralized network.</p>
+<p>The process of encrypting Face ID using hashing and vectorization begins with the system capturing the user’s face image. The recognition algorithm then extracts essential features from this image and converts them into a <strong>numerical vector</strong> () that represents the facial features.</p>
+<p>This vector is passed through a <a href="https://www.ssl.com/article/what-is-a-cryptographic-hash-function/">cryptographic hash function</a>, create a unique and fixed encrypted string (hash) that is irreversible — it cannot be used to reconstruct the original face, thereby protecting the user’s identity from exposure.</p>
+<p>The hash string is then stored or transmitted in an encrypted state, allowing the system or the auditor to confirm the data’s validity without direct access to the original image, ensuring security and privacy via the Zero-Knowledge Proof method.</p>
+<p>The process includes the following steps:</p>
+<ol>
+<li>Face image capture.</li>
+<li>Feature extraction into a numerical vector.</li>
+<li>Applying the hash function to the vector to generate a unique hash code.</li>
+<li>Storing the hash code in a secured, encrypted form.</li>
+<li>Data confirmation via an auditor without revealing the original information.</li>
+</ol>
+<p>This ensures that biometric data is processed securely, accurately, and transparently while preserving user privacy.</p>
+<h2 id="mechanism-of-operation-ii-palm-scan-verification">Mechanism of Operation II: Palm Scan Verification</h2>
+<p>Instead of immediately opening the door upon touch, the device scans the palm and converts this image into a facier (a vector representation of biometric features such as skin patterns and vascular structure).</p>
+<p>This facier data is then sent to verification protocols (for instance, Humanity Protocol, a decentralized consensus mechanism where validators use Zero-Knowledge Proof (ZKP) technology to verify the data’s validity without exposing the original information).</p>
+<p>Once the validators reach a consensus confirming correctness, the result is returned to the device to open the door. This approach ensures high security, avoids the risk of direct biometric data leakage, and leverages the transparency and decentralization of the blockchain, offering users confidence in their privacy and personal data security.</p>
+<p>The process of creating a facier from a palm image includes the following key steps:</p>
+<p><strong>1. Palm image capture:</strong> Using a scanning device or camera to capture the palm image in a raster format (typically grayscale or color).
+<strong>2. Image pre-processing:</strong> The captured image is processed to eliminate noise, adjust brightness, and highlight biometric features such as friction ridges, vascular lines, and other distinctive palm characteristics. The palm area is precisely cropped to standardize size and ratio.
+<strong>3. Feature extraction:</strong> Machine learning or pattern recognition algorithms analyze the pre-processed palm to extract crucial biometric features. Data on lines, veins, intersections, and texture patterns are converted into numerical representations, forming a feature vector (facier).
+**4. Standardization and vectorization: **These features are digitized as a multi-dimensional vector representing the specific biometric information of the user’s palm.
+<strong>5. Secure encryption:</strong> The biometric vector then undergoes a cryptographic hash function to create a unique, secure hash string that is irreversible to the original image, ensuring user privacy.</p>
+<p>This process ensures that within the DePIN biometric technology framework, the palm is processed into a secure, digitized data form (facier) that can be used in conjunction with security protocols like Zero-Knowledge Proof and decentralized validators for authentication without revealing the original data.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>The Facier and Zero-Knowledge Proof technologies, combined with decentralized validators, provide developers with a robust framework for secure biometric authentication in DePIN systems. By converting hand palm images into encrypted vectors using cryptographic hashes, and verifying them via validators through ZKP, developers effectively mitigate risks of spoofing and data leakage. This approach opens new possibilities for building scalable, privacy-preserving identity solutions, empowering devs to design innovative protocols on top of decentralized infrastructure with enhanced security and trust.</p>
+<p>If you found it to be helpful, all amplification and all feedback would be greatly appreciated!</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "From KYC to ZKP: DePIN&#x27;s Next Frontier in Self-Custodial Biometric Authentication",
+    "description": "Biometric verification built on the Blockchain significantly helps mitigate DePIN risk factors.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Biometrics_72e09089ed.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/from-kyc-to-zkp-de-pin"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

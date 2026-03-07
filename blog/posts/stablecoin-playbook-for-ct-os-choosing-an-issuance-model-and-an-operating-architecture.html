@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture | Cyberk Blog</title>
+  <meta name="description" content="Stablecoin in nature is a financial product with a balance sheet and an on-chain interface.">
+  <link rel="canonical" href="https://cyberk.io/blog/stablecoin-playbook-for-ct-os-choosing-an-issuance-model-and-an-operating-architecture">
+  <meta property="og:title" content="Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture | Cyberk Blog">
+  <meta property="og:description" content="Stablecoin in nature is a financial product with a balance sheet and an on-chain interface.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_2_190faeba26.png">
+  <meta property="og:url" content="https://cyberk.io/blog/stablecoin-playbook-for-ct-os-choosing-an-issuance-model-and-an-operating-architecture">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture">
+  <meta name="twitter:description" content="Stablecoin in nature is a financial product with a balance sheet and an on-chain interface.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_2_190faeba26.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>10 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_2_190faeba26.png" alt="Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <h1 id="stablecoin-playbook-for-c-level-ctos-choosing-an-issuance-model-and-an-operating-architecture">Stablecoin playbook for C-level &amp; CTOs: Choosing an issuance model and an operating architecture</h1>
+<p>Stablecoin sounds like <strong>a $1 token</strong>, but from an CTO, the correct mental model is <strong>a financial product with a balance sheet with an on-chain interface</strong>. The token is just an API. What determines whether it survives market cycles and an on-chain “bank run” is the <strong>issuance model</strong> and the <strong>operating architecture</strong>.</p>
+<h2 id="1-the-big-picture-stablecoin-is-a-system-not-just-a-token">1. The big picture: stablecoin is a system, not just a token</h2>
+<h3 id="stablecoin-as-a-system-the-3-mandatory-layers">Stablecoin as a system: the 3 mandatory layers</h3>
+<p>At the system level, a stablecoin always has three layers stacked on top of each other. The <a href="https://coinswitch.co/switch/crypto/on-chain-vs-off-chain-crypto-transactions-know-the-differences/"><strong>balance sheet (off-chain)</strong></a> layer defines where reserves sit, what form they take, who holds custody, and the holder’s priority if the issuer fails. The <strong>issuance &amp; compliance (on-chain/off-chain)</strong> layer defines how mint/burn tracks fiat flows, how AML/KYC is applied, and how blacklist/freeze works. The <strong>distribution (on-chain)</strong> layer answers which chains the token runs on, whether it goes cross-chain, and how it integrates with on-ramp/off-ramp to function as a payment rail.</p>
+<p>This is why the two most common issuance models differ mainly in <strong>how reserves are held and governed</strong> (bank deposits vs money-market portfolios) and <strong>how open the ecosystem is</strong> (closed loop vs public chains). With fiat-backed stablecoins, reserves almost always live inside traditional custody/banking/market rails, so you can’t decentralize the whole stack; what you <em>can</em> do is make the off-chain part controlled and auditable. When choosing an MVP model, ask yourself: over the next 6–12 months, are you choosing between optimizing <strong>legal fit and closed-loop settlement</strong>, or <strong>scale/distribution/economics</strong>?</p>
+<h2 id="2-core-architecture-decisions-through-the-lens-of-issuance-models">2. Core architecture decisions (through the lens of issuance models)</h2>
+<h3 id="21-bank-centric-tokenized-deposits-in-a-closed-network">2.1. Bank-Centric: Tokenized deposits in a closed network</h3>
+<p>The <strong>core idea</strong> is the stablecoin is treated as a <strong>tokenized deposit</strong>. Reserves are primarily <strong>bank deposits</strong>, and the issuer is usually a bank or a licensed banking subsidiary. Examples: <strong>JPM Coin</strong>, <strong>EURCV (SG-Forge)</strong>.</p>
+<p><strong>Typical architecture (high-level):</strong> onboarding + core banking ledger → mint/burn instructions → closed/controlled rails (often permissioned).</p>
+<p><strong>Technical trade-offs:</strong></p>
+<p>Because it optimizes control and legal fit, this model usually operates as a <strong>closed structure</strong>: the token/rail lives inside a walled network, so composability with dapps/public chains is limited. When you want to “go outside”, bridge/cross-chain increases attack surface, and the compliance surface expands too (screening, monitoring, incident response).</p>
+<p>System-wise, bank-centric setups often treat the <strong>core banking ledger</strong> as the source of truth, while the on-chain ledger is a representation for settlement within a controlled scope. That forces two things: strong <strong>reconciliation</strong> (mint/burn must always match deposit state, including reversals/holds) and explicit <strong>permissioning</strong> (who can hold/transfer, counterparty limits, and policies under compliance events). Permissioned rails don’t remove risk; they shift it toward <strong>operational controls</strong> and <strong>integration</strong>. The hard part is state synchronization + SLA.</p>
+<h3 id="22-capital-market-centric-reserve-portfolios-on-public-chains">2.2. Capital Market-Centric Reserve portfolios on public chains</h3>
+<p>The <strong>core idea</strong> about capital market-centric is the issuer (fintech/non-bank) manages reserves as a high-liquidity portfolio: <strong>MMFs, short-dated T-bills, repos</strong>. Examples: <strong>USDC</strong>, <strong>USDT</strong>, <strong>PYUSD</strong>.</p>
+<p><strong>Typical architecture (high-level)</strong> allow users go through on-ramp/off-ramp; the ops layer (KYC/AML + treasury) orchestrates cash movement and reconciliation; reserves sit with a custodian/asset manager as a liquid portfolio (plus cash accounts at banks); issuance contracts live on public chains to maximize distribution and composability.</p>
+<p><strong>Legal and system risk trade-offs:</strong></p>
+<p>This model expands the “trust surface”, more parties participate (custodian, asset manager, banks, auditors), meaning more potential failure points. Legally, the reserve portfolio and economic rights around it can pull the stablecoin closer to a “security-like” zone—so governance, disclosure, and reporting are part of the architecture, not optional.</p>
+<p>What makes this model scale is the <strong>treasury stack</strong>. In practice, you need a liquidity “tower”: a cash buffer for instant redemptions, an ultra-short layer (overnight/repo) to absorb volatility, and a T-bills/MMF layer to optimize yield while staying liquid. Reserves are a portfolio—duration, concentration, and counterparty risk are real engineering constraints. Interest income is also the budget that pays for compliance/audit/monitoring.</p>
+<h3 id="23-legal-redemption-redemption-is-the-most-important-contract">2.3. Legal &amp; redemption: redemption is the most important “contract”</h3>
+<p>If you treat a stablecoin as a monetary API, <strong>redemption</strong> is the most important endpoint. Your architecture must answer:</p>
+<p>First, <strong>legal certainty</strong> - Is it e-money, a deposit-like product, or a security token?
+Second, <strong>reserve requirements</strong>: reserves must be <strong>1:1</strong>, high quality, highly liquid, short duration, and <strong>unencumbered</strong>.
+Third, <strong>segregation &amp; custody</strong>: reserves must be legally and operationally segregated (trust accounts / custodial segregation).
+Finally, <strong>redemption SLA</strong>: T+0/T+1, limits, and freeze conditions under compliance.</p>
+<p>In bank-centric systems, “redemption SLA” is largely anchored in core banking. In capital-market-centric systems, “redemption SLA” depends on treasury ops, portfolio liquidity, and liquidation playbooks.</p>
+<p>A common design trap is writing a redemption policy as generic Terms, but not turning it into a <strong>control plane</strong>. T+0/T+1 implies cash buffers, cut-off times, queues, statuses, and tiered limits; freeze powers imply defining freeze at which layer and how disputes are handled. Segregation isn’t just text—it determines custody/trust access controls, treasury audit trails, and whether you can prove reserves are unencumbered.</p>
+<h3 id="24-issuance-stack-mintburn-compliance-key-management">2.4. Issuance stack: mint/burn + compliance + key management</h3>
+<p>Regardless of model, the issuance contract must have four capability groups:</p>
+<ol>
+<li><strong>Mint/burn hooks</strong> tied to off-chain ledger instructions (fiat in/out) with idempotency;</li>
+<li><strong>Role-based access control</strong> (minter/burner/pauser) + separation of duties (SoD);</li>
+<li><strong>Compliance controls</strong> (blacklist/freeze, address screening, market-specific hooks); and</li>
+<li><strong>Key management</strong> (HSM/MPC/multi-sig, rotation, incident runbooks).</li>
+</ol>
+<p>To make this concrete, treat your issuance stack as a pipeline:</p>
+<blockquote>
+<p>payments ingest → double-entry ledger → risk/compliance engine → signing service (MPC/HSM) → reconciliation/monitoring + runbooks.</p>
+</blockquote>
+<p>At the contract layer, you must decide early on upgradeability (immutable vs proxy), pause policy, and timelock/governance for sensitive role changes—these trade-offs are unavoidable if you want to patch fast <em>and</em> keep trust.</p>
+<h3 id="25-transparency-monitoring-proof-of-reserve-attestation-and-operating-like-sre">2.5. Transparency &amp; monitoring: Proof of Reserve, attestation, and operating like SRE</h3>
+<p>Stablecoins often die from <strong>loss of trust</strong>, so transparency is architecture. At minimum you need: <strong>Proof of Reserve (PoR)</strong> to reconcile on-chain supply with off-chain reserves on a clear cadence; <strong>independent attestation/audit</strong> that periodically publishes reserve composition, maturities, and credit risk and <strong>continuous supervision</strong> for liquidity, concentration risk, and on-chain anomalies.</p>
+<p>A PoR that actually works needs <strong>multi-chain correctness</strong> (compute supply per chain without double-counting, including bridge/wrapped cases) and <strong>time alignment</strong> (supply snapshot and reserve snapshot must share the same business timestamp). That requires multi-chain indexers, a reserve reporting pipeline (custodian/bank statements), and a publishing layer that explains deltas (pending redemptions, settlement delays). Continuous supervision should have alerting + clear runbooks.</p>
+<h2 id="3-lifeline-data-flows-mintredeem-and-cross-chain-expansion">3. Lifeline data flows: mint/redeem and cross-chain expansion</h2>
+<h3 id="flow-1-mint-redeem-from-fiat-to-token-and-back">Flow 1: Mint / Redeem — from fiat to token and back</h3>
+<p><strong>Mint (fiat → stablecoin):</strong> the user completes onboarding (KYC/AML) to get whitelisted, then sends fiat to a receiving account (bank account / payment partner). The off-chain ledger records “cash received” and issues a <strong>mint instruction</strong> (with an idempotency key), then the issuance service calls the smart contract <em>mint(to, amount)</em> using an operational wallet (MPC/multi-sig). Once the chain emits events, monitoring reconciles supply and closes the loop.</p>
+<p><strong>Redeem (stablecoin → fiat):</strong> the user sends tokens to a redeem address or calls <em>burnFrom(user, amount)</em> by policy. The burn event will triggers an off-chain workflow that checks compliance and limits. The treasury layer selects liquidity sources (cash accounts vs liquidating T-bills/MMFs), pays fiat to the user, and updates the ledger as “cash paid out”. Finally, the PoR/attestation pipeline records the supply vs reserve change on the published cadence.</p>
+<p>The key design point is <strong>“as-if atomicity”</strong> between off-chain cash movement and on-chain mint/burn (retry-safe, reconciliation, dispute handling).</p>
+<p>Three invariants you should write into the design doc: <strong>never mint without cash finality</strong> per policy. <strong>Every mint/burn has an idempotency key + explicit state machine</strong> and <strong>reconciliation is mandatory</strong>, not a nightly job. These invariants prevent “supply outruns reserves” under recalls, settlement delays, stuck transactions, or reorgs.</p>
+<h3 id="flow-2-cross-chain-bridge-or-burn-mint">Flow 2: Cross-chain — bridge or burn-mint?</h3>
+<p>Two common approaches: <strong>bridge models</strong> deploy fast but carry bridge risk; <strong>native burn-mint</strong> reduces bridge risk via a message layer, but forces message security and strict operational discipline.</p>
+<p>For burn-mint, the core is <strong>message integrity</strong> (who can emit messages, replay protection, and failure handling when the message layer stalls). For bridges, the core is <strong>custody integrity</strong> (who holds the multisig, the upgrade process, and blast radius). Cross-chain trades composability for operational complexity—limit the number of chains if your team isn’t ready for on-call/runbooks.</p>
+<h2 id="4-risk-nfrs-failure-modes-to-prepare-before-mainnet">4. Risk &amp; NFRs: failure modes to prepare before mainnet</h2>
+<p>This is what most teams ignore until the system breaks.</p>
+<p>If a <strong>redemption run (on-chain bank run)</strong> hits, mitigation is mechanics: tiered limits, liquidity buffers, a clear liquidation playbook, and a communication playbook to reduce panic.</p>
+<p>If there is a <strong>key compromise (minter key leaked)</strong>, you need MPC + policy engine, a pauser role, timelocks for sensitive permissions, plus rotation &amp; audit trails.</p>
+<p>If reserves face <strong>encumbrance</strong> or <strong>counterparty risk</strong>, architecture must reflect diversification, concentration limits, and custodian segregation.</p>
+<p>If regulators demand freezing a set of addresses, compliance modules and legal review must be explicit; every action needs audit logging; avoid ad-hoc ops.</p>
+<p>You can’t decentralize reserves, so do <strong>disciplined centralized risk management</strong>.</p>
+<p>Two common “break the team” scenarios are <strong>banking partner outages</strong> (on/off-ramp stalls) and <strong>attestation/reporting delays</strong> during market stress. This is why you need a status page, internal SLAs, and a reporting cadence that prevents the market from writing your story for you.</p>
+<h2 id="5-blueprint-tech-stack-from-mvp-to-scale">5. Blueprint tech stack: from MVP to scale</h2>
+<h3 id="proven">Proven</h3>
+<p>At treasury, you need a <strong>double-entry ledger</strong> and reconciliation based on idempotent events. For custody, prefer <strong>MPC/HSM</strong> with multi-sig and policy approvals (SoD). On-chain, use an audited token with <em>mint/burn/pause/blacklist</em> and an event schema that’s easy to index/monitor. For transparency, you need multi-chain supply indexers and an attestation workflow; plus sanctions screening, audit logs, and runbook-driven alerting.</p>
+<p>If you’re building an MVP that is “fast but clean”, the minimum should include: a ledger with clear instruction states, a signing setup with SoD, a per-chain supply indexer, and an internal PoR dashboard. At scale, add treasury laddering, customer/partner limit modules, and an attestation pipeline that can be published.</p>
+<h3 id="experimental">Experimental</h3>
+<p>If you can operate message security, <strong>native burn-mint cross-chain</strong> is worth considering. If you want to upgrade “trust UX”, <strong>real-time PoR</strong> via cryptographic commitments/Merkle proofs is an option, but it must be balanced against off-chain data constraints and disclosure requirements.</p>
+<h2 id="6-conclusion-choose-the-model-first-then-choose-the-chain">6. Conclusion: Choose the model first, then choose the chain</h2>
+<p>Stablecoin is not a contest of who writes the prettiest smart contract. It’s the problem of designing an operating organization on the TradFi–DeFi boundary, where every technical decision has legal consequences and trust implications.</p>
+<p>If you’re building in DePIN/RWA/AI Agents, treat stablecoin as a payment rail and  settlement primitive. Choose the issuance model first (bank-centric vs capital-market-centric), then choose chains, cross-chain strategy, and features. Good architecture lets you ship fast <em>and</em> clean. And bad architecture makes you realize too late that you’ve accidentally built a mini bank.</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Stablecoin Playbook for CTOs: Choosing an Issuance Model and an Operating Architecture",
+    "description": "Stablecoin in nature is a financial product with a balance sheet and an on-chain interface.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_2_190faeba26.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/stablecoin-playbook-for-ct-os-choosing-an-issuance-model-and-an-operating-architecture"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

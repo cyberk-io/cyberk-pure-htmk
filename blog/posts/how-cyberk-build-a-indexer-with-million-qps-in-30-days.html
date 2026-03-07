@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Cyberk Build an Indexer with Million QPS in 30 Days | Cyberk Blog</title>
+  <meta name="description" content="Let&#x27;s explore how such an architecture is built to make million-QPS indexing possible.">
+  <link rel="canonical" href="https://cyberk.io/blog/how-cyberk-build-a-indexer-with-million-qps-in-30-days">
+  <meta property="og:title" content="How Cyberk Build an Indexer with Million QPS in 30 Days | Cyberk Blog">
+  <meta property="og:description" content="Let&#x27;s explore how such an architecture is built to make million-QPS indexing possible.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/How_to_build_an_Indexer_999b85a978.png">
+  <meta property="og:url" content="https://cyberk.io/blog/how-cyberk-build-a-indexer-with-million-qps-in-30-days">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="How Cyberk Build an Indexer with Million QPS in 30 Days">
+  <meta name="twitter:description" content="Let&#x27;s explore how such an architecture is built to make million-QPS indexing possible.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/How_to_build_an_Indexer_999b85a978.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>How Cyberk Build an Indexer with Million QPS in 30 Days</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 8, 2026</span>
+          <span>&middot;</span>
+          <span>9 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/How_to_build_an_Indexer_999b85a978.png" alt="How Cyberk Build an Indexer with Million QPS in 30 Days" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>In traditional system design, scalability often means building one massive architecture that handles millions of requests through centralized coordination and shared infrastructure. This model can work, but as systems grow, synchronization overhead, and maintenance complexity start to limit both performance and agility.</p>
+<p><strong><a href="../../index.html">Cyberk</a></strong> has developed a more modern approach that takes the opposite direction. Instead of one large system serving everyone, each user or project operates within its own isolated environment — a dedicated database and API, automatically provisioned and deployed on AWS.</p>
+<p>These micro-systems scale independently, matching their compute and storage precisely to the user’s real workload. By distributing workloads into thousands of lightweight, autonomous systems, the indexer achieves horizontal scalability by design. Each unit runs optimally within its boundary, while the overall infrastructure collectively supports millions of QPS through parallel execution.</p>
+<p>In this article, let’s explore how such an architecture is built — from core design principles and data pipeline strategies to technical challenges and best practices that make million-QPS indexing possible.</p>
+<h2 id="traditional-vs-distributed-indexing-architecture">Traditional vs. Distributed Indexing Architecture</h2>
+<p>Blockchain networks are scaling faster than ever. With the existence of high-scalability Layer 1s and Layer 2s like Sui, Polkadot or Fogo, the amount of on-chain data being generated has exploded. For businesses building on this data — whether in DeFi, GameFi, E-commerce, or enterprise blockchain applications , the real-time access to accurate, enriched information is no longer a luxury, but a necessity.</p>
+<p>In traditional system design, scalability often follows a vertical model — building a single, centralized system powerful enough to handle millions of requests per second. This model works well in early stages, when the data volume and number of users are limited. However, as blockchain networks expand and data grows exponentially, the monolithic architecture begins to show its cracks.</p>
+<p>When more users or new chains are added, the system grows heavier — databases expand, compute clusters need constant scaling, and caching layers become increasingly complex. Eventually, resource contention appears: a heavy query from one project can slow down others, and maintenance or upgrades turn into risky operations that affect the entire platform. The system may still function, but every improvement requires more coordination, more cost, and more effort to keep performance stable.</p>
+<p>Distributed architecture takes a completely different path. Instead of concentrating all workloads in one large system, the indexer is broken down into many small, autonomous environments, each operating independently.</p>
+<p>Every user or project has its own database and API instance, provisioned dynamically and deployed on AWS infrastructure. Rather than pushing one system to its physical limits, distributed indexing allows the platform to scale horizontally — by adding more lightweight systems instead of making a single one bigger.</p>
+<p>Each unit can grow, shrink, or restart without disrupting others, resulting in predictable performance and simpler operations. Platforms like <strong>Covalent, Flipside Crypto, and Dune Analytics</strong> have adopted modular designs where multiple indexers run in parallel, each serving different chains or users.</p>
+<p>In essence, the shift from traditional to distributed architecture redefines what scalability means — a network of smaller, smarter systems that work together seamlessly to achieve large-scale performance.</p>
+<h2 id="large-scale-indexer-high-level-architecture-overview">Large-scale Indexer: High-Level Architecture Overview</h2>
+<p>In blockchain, every transaction, token mint, or <strong><a href="../../services/smart-contract-development.html">smart contract</a></strong> event generates data. To turn that ever-growing data stream into <strong>real-time, queryable insights</strong>, an indexer must balance three key goals:</p>
+<ul>
+<li>Speed — capture data within seconds after it’s confirmed on-chain.</li>
+<li>Scalability — handle millions of queries simultaneously without downtime.</li>
+<li>Consistency — ensure data accuracy across billions of records.</li>
+</ul>
+<p>To achieve that, Cyberk designed its large-scale indexer around a <strong>modular three-level architecture</strong>, optimized for distributed performance and horizontal scaling.</p>
+<p><strong>Data Ingestion Layer</strong> — This layer is responsible for connecting to the Aptos blockchain, continuously extracting transaction and event data, and storing them in their raw form.</p>
+<p>Projects like <strong>The Graph</strong> also rely on node data, but their indexing depends on manual subgraph configurations.</p>
+<p><strong>Data Processing Layer</strong> — This layer takes the raw data, decodes and enriches it by combining it with external data sources, applies business logic, and structures it to make it query-ready. This is where token metadata, wallet analytics, or price feeds are merged with transaction data to give full context to every event.</p>
+<p>Comparable to Flipside Crypto or Covalent, this layer serves as the “brain” of the system</p>
+<p><strong>Data Delivery Layer</strong> — This layer provides user-facing interfaces (APIs and UI). It allows users to query the processed data through public APIs and also offers tools for creating their own custom data pipelines (Custom Indexer Platform).</p>
+<p>While Moralis and Dune Analytics offer query-based access, Cyberk goes further with automated schema generation powered by AI — allowing developers to onboard new contracts and start querying within minutes, not weeks.</p>
+<h2 id="how-to-build-a-large-scale-indexer-with-million-qps-component-breakdown-tech-stack">How to Build a Large-scale Indexer with million QPS: Component Breakdown &amp; Tech Stack</h2>
+<p><img loading="lazy" src="https://d2l5jmy01h5jfp.cloudfront.net/system_d97d646607.jpg" alt="System Architecture of the Protocol"/></p>
+<h2 id="starting-from-the-source-aptos-node">Starting from the Source: Aptos Node</h2>
+<p>The workflow begins at the Aptos Node, the ultimate source of truth for all on-chain events.</p>
+<p>This node continuously emits blocks, transactions, and contract events that represent the live state of the network.</p>
+<p>The indexing system connects directly to the node through gRPC or JSON-RPC, streaming both historical and real-time data. This direct connection guarantees data integrity and enables full reproducibility — crucial when backfilling data or verifying chain states.</p>
+<h3 id="1-etl-server-extract-transform-load">1. ETL Server — Extract, Transform, Load</h3>
+<p>The ETL Server acts as the gateway between the blockchain and the rest of the indexing infrastructure. It extracts transaction streams from the node, performs lightweight transformations (batching, deduplication, checkpointing), and loads the data into downstream components such as the EventBus, Recent Transactions DB, or Data Warehouse.</p>
+<p>It ensures the system can process millions of on-chain events continuously without data loss. Written in Rust or Go and deployed on Kubernetes, the ETL layer offers high throughput, fault tolerance, and automatic recovery.</p>
+<p><strong>Purpose</strong>: Reliable, real-time ingestion and historical synchronization of on-chain data.</p>
+<h3 id="2-recent-transactions-db-main-db-hot-and-structured-storage">2. Recent Transactions DB &amp; Main DB — Hot and Structured Storage</h3>
+<p>The ETL Server routes data into two key storage systems:</p>
+<ul>
+<li>Recent Transactions DB (7 days): Keeps “hot” data for real-time queries — enabling instant access to recent transactions or mempool-like views.</li>
+<li>Main DB: Stores validated, structured data following a predefined schema.</li>
+</ul>
+<p>This separation of hot and structured storage optimizes for both speed and long-term consistency. Time-series databases like ClickHouse or TimescaleDB are ideal for Recent DB, while the Main DB often uses PostgreSQL for relational integrity.</p>
+<p><strong>Purpose</strong>: Low-latency querying for fresh data while maintaining long-term persistence for indexed datasets.</p>
+<h3 id="3-cron-sync-data-warehouse">3. CRON Sync → Data Warehouse</h3>
+<p>At regular intervals, a CRON job synchronizes the processed data into the Data Warehouse, which serves as the immutable “single source of truth.”
+This warehouse stores large historical datasets in object storage (e.g., Amazon S3) and supports high-performance analytics engines like ClickHouse or Redshift.</p>
+<p>When deploying a new indexer, the system can bootstrap data directly from the warehouse rather than rescanning the blockchain — reducing sync time to under 10 minutes.</p>
+<p><strong>Purpose</strong>: Historical storage, reprocessing capability, and fast initialization for new indexers.</p>
+<h3 id="4-eventbus-the-asynchronous-backbone">4. EventBus — The Asynchronous Backbone</h3>
+<p>The EventBus (implemented via AWS EventBridge, Kafka, or Redpanda) serves as the backbone of the entire data pipeline. It decouples data ingestion from data processing, allowing hundreds of worker services to run in parallel.</p>
+<p>Whenever a new block or event is detected, the ETL publishes it to the EventBus.
+Downstream processors subscribe to these topics to decode, enrich, and store the data — ensuring real-time scalability without blocking the main ingestion flow.</p>
+<p><strong>Purpose</strong>: Distribute workload asynchronously and enable parallel, event-driven data processing across the system.</p>
+<h3 id="5-processor-lambda-decode-enrich-and-compute">5. Processor (Lambda) — Decode, Enrich, and Compute</h3>
+<p>The Processor, often implemented as AWS Lambda or lightweight microservices, subscribes to the EventBus.</p>
+<p>It decodes raw blockchain events (e.g., Move VM events on Aptos), enriches them with external data (like token prices or metadata), and performs computations such as aggregations, counters, or analytics before writing results to the Indexer DB.</p>
+<p>Each processor function is designed to be idempotent, ensuring reliability even with retries or duplicate events.
+Because these functions scale automatically with incoming events, they are cost-efficient and can handle massive throughput without manual scaling.</p>
+<p><strong>Purpose</strong>: Transform raw events into structured, analytics-ready data for querying and dashboards.</p>
+<h3 id="6-indexer-db-per-tenant-database">6. Indexer DB — Per-Tenant Database</h3>
+<p>Each user or project in the system is provisioned with its own dedicated Indexer DB, which stores the processed data relevant to that specific tenant.
+This design ensures complete data and performance isolation: one user’s heavy workload never impacts another’s.</p>
+<p>The Indexer DBs are often powered by NeonDB (serverless PostgreSQL) or similar technologies, providing automatic scaling, branching, and cost optimization.</p>
+<p><strong>Purpose</strong>: Tenant-level data isolation and independent scalability for each indexer instance.</p>
+<h3 id="7-graphql-indexers-query-layer">7. GraphQL / Indexers — Query Layer</h3>
+<p>Once data is written into the Indexer DB, it’s exposed through a GraphQL API (using Hasura) or a RESTful endpoint.</p>
+<p>Hasura automatically generates the API schema from the database structure, allowing developers to query data, subscribe to updates, and integrate results into dashboards or applications instantly.</p>
+<p>This layer also includes authentication, rate limiting, and real-time subscriptions over WebSockets, ensuring both speed and security for developers.</p>
+<p>Purpose: Provide a unified, developer-friendly API layer for querying on-chain data.</p>
+<h3 id="8-ai-schema-generator-automated-data-modeling">8. AI Schema Generator — Automated Data Modeling</h3>
+<p>Before data even reaches the indexer, smart contracts are analyzed by the AI Schema Generator.</p>
+<p>This component uses LLMs (via LangChain / OpenRouter) to inspect contract ABIs and automatically generate optimized database schemas.</p>
+<p>The result is a low-code experience where developers can create a new indexer in minutes without manually mapping every field.</p>
+<p>This not only accelerates onboarding but also ensures schema consistency across projects.</p>
+<p><strong>Purpose</strong>: Automate schema generation and speed up indexer deployment.</p>
+<h3 id="9-lambda-api-control-plane-orchestration-layer">9. Lambda API &amp; Control Plane — Orchestration Layer</h3>
+<p>A Lambda API acts as the control layer, coordinating system health, indexer states, and lifecycle management.
+It checks whether a contract is actively being indexed, determines if an indexer is suspended or idle, and manages throttling or auto-scaling triggers.</p>
+<p>This orchestration layer ensures that the system remains responsive, efficient, and stable — even under fluctuating workloads.</p>
+<p><strong>Purpose</strong>: Monitor, control, and optimize the runtime behavior of all indexers in the ecosystem.</p>
+<h2 id="advantages-over-traditional-architectures">Advantages Over Traditional Architectures</h2>
+<p>Unlike monolithic indexers that process everything in a single shared system, this distributed architecture decomposes workloads into isolated, on-demand environments.</p>
+<p>Each tenant’s indexer scales independently, preventing noisy neighbors and reducing operational overhead.</p>
+<p>With data already structured in the warehouse and schemas auto-<strong><a href="../../services/mvp-agent-development.html">generated by AI</a></strong>, new indexers can deploy and sync in under ten minutes, dramatically accelerating time-to-production.</p>
+<p>By combining event-driven processing, serverless execution, and per-tenant databases, the architecture achieves true horizontal scalability — capable of handling millions of concurrent queries per second while maintaining predictable performance and low cost.</p>
+<p>_Authors: Anderson Dao, Jay
+_</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "How Cyberk Build an Indexer with Million QPS in 30 Days",
+    "description": "Let&#x27;s explore how such an architecture is built to make million-QPS indexing possible.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/How_to_build_an_Indexer_999b85a978.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 8, 2026",
+    "url": "https://cyberk.io/blog/how-cyberk-build-a-indexer-with-million-qps-in-30-days"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

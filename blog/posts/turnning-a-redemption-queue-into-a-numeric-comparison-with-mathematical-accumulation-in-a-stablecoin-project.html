@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation | Cyberk Blog</title>
+  <meta name="description" content="Today, we want to share how we optimized the redemption process for a Stablecoin project.">
+  <link rel="canonical" href="https://cyberk.io/blog/turnning-a-redemption-queue-into-a-numeric-comparison-with-mathematical-accumulation-in-a-stablecoin-project">
+  <meta property="og:title" content="Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation | Cyberk Blog">
+  <meta property="og:description" content="Today, we want to share how we optimized the redemption process for a Stablecoin project.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_3_f7913173fa.png">
+  <meta property="og:url" content="https://cyberk.io/blog/turnning-a-redemption-queue-into-a-numeric-comparison-with-mathematical-accumulation-in-a-stablecoin-project">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation">
+  <meta name="twitter:description" content="Today, we want to share how we optimized the redemption process for a Stablecoin project.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_3_f7913173fa.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation</h1>
+        <div class="blog-post-meta">
+          <span>Kanz</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>5 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_3_f7913173fa.png" alt="Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>If you’ve ever shipped a stablecoin (or any on-chain <strong>redemption / withdrawal</strong> flow), you’ll eventually meet the same throughput killer: the <strong>queue</strong>. At low load it “works.” Then traffic spikes: <strong>gas spikes</strong>, txs fail, latency climbs, an operator is forced to “clear the queue,” and the team gets dragged into hotfix mode.</p>
+<p>Here’s a pattern we used at Cyberk while optimizing redemption for a stablecoin backed by $USDT/$USDC: <strong>transform a &quot;Queue Management&quot; problem into a simple &quot;Numeric Comparison&quot; by applying Mathematical Accumulation Functions</strong>. It’s pragmatic because it helps you:</p>
+<ul>
+<li>collapse procedural loops into number comparisons (O(1))</li>
+<li>enforce FIFO as a mathematical invariant (instead of pointer/index choreography)</li>
+<li>reduce attack surface (fewer state-transition branches)</li>
+</ul>
+<p>Note: <strong>every math/formula line below is copied verbatim from the source</strong>, with zero symbol changes, so PDF rendering won’t “break.”</p>
+<h2 id="1-the-procedural-queue-problem-correct-logic-wrong-throughput">1) The procedural queue problem: “correct logic,” wrong throughput</h2>
+<p>Most dApps handle redemption with a procedural queue: store each request in an array/linked list, and when new collateral arrives (deposit/disbursement), the contract/operator loops through requests to update status and claimable balances.</p>
+<p>You’ll see this pattern everywhere (and it often balloons fast):</p>
+<ul>
+<li><strong>OpenZeppelin Standard:</strong> Using <a href="https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/utils/structs/DoubleEndedQueue.sol">DoubleEndedQueue</a>, which requires manual management of pointers and array storage.</li>
+<li><strong>Lido/Ondo Finance:</strong> Their implementations (e.g., <a href="https://github.com/lidofinance/core/blob/master/contracts/0.8.9/WithdrawalQueue.sol">WithdrawalQueue.sol</a>) often exceed <strong>1,000 lines of code</strong>. These contracts must handle complex logic to iterate through requests, update individual statuses, and manage pointers.</li>
+</ul>
+<p>The issue isn’t that the devs are “bad.” It’s structural: a procedural queue forces you to walk per-request state. Two major costs:</p>
+<ul>
+<li><strong>Linear Gas Growth ($O(n)$):</strong> To clear the queue, an <em>operator</em> must loop through individual requests. If a request is at position $100$ in the sequence, the system must process 99 preceding requests before reaching it. This is an immense bottleneck on Ethereum or Solana.</li>
+<li><strong>Security Risk:</strong> More lines of code mean a larger attack surface. Procedural queues are prone to edge-case bugs during state transitions and complex pointer updates.</li>
+</ul>
+<p>Under deadline pressure, the trap is predictable: <strong>the more you “optimize” a procedural queue, the more code you add</strong> (more branches), and the harder it becomes to audit and benchmark the right thing.</p>
+<h2 id="2-reframe-from-managing-the-queue-to-comparing-two-numbers">2) Reframe: from “managing the queue” to “comparing two numbers”</h2>
+<p>The leverage comes from changing the question. Instead of “which request has been processed?”, ask:</p>
+<ul>
+<li>how far has total collateral been disbursed?</li>
+<li>where does this request sit on the cumulative redemption axis?</li>
+</ul>
+<p>That’s why we do it like this:</p>
+<p>We transform a &quot;Queue Management&quot; problem into a simple &quot;Numeric Comparison.&quot; By applying <strong>Accumulation Functions</strong>, we achieve <strong>$O(1)$ complexity</strong>—meaning the system cost remains constant whether there are 10 or 10,000,000 requests.</p>
+<p>In short: you turn the queue into a number line. Each request occupies a “window” on that line. Settlement becomes comparing a window against “how far capital has flowed.”</p>
+<h2 id="3-defining-the-variables">3) Defining the Variables:</h2>
+<p>Let $t$ represent the sequence of transactions.</p>
+<ul>
+<li><strong>$r_i$</strong>: The amount of tokens in the <strong>$i$-th Request</strong>.</li>
+<li><strong>$d_j$</strong>: The amount of collateral disbursed by the Admin in the <strong>$j$-th Deposit</strong>.</li>
+<li><strong>$R(n)$</strong>: The <strong>Cumulative Redemption Function</strong> for the first $n$ requests.</li>
+</ul>
+<blockquote>
+<p>$R(n) = \sum_{i=1}^{n} r_i$</p>
+</blockquote>
+<ul>
+<li><strong>$D(m)$</strong>: The <strong>Cumulative Disbursement Function</strong> after $m$ deposits.</li>
+</ul>
+<blockquote>
+<p>$D(m) = \sum_{j=1}^{m} d_j$</p>
+</blockquote>
+<h3 id="request-snapshotting">Request Snapshotting:</h3>
+<p>When a new request $n$ is created, the contract takes a &quot;Snapshot&quot; of the total accumulated requests at that moment. This snapshot $S_n$ defines the exact threshold of disbursed capital required for this specific request to be settled:</p>
+<blockquote>
+<p>Request Snapshot: $S_n = R(n)$</p>
+</blockquote>
+<p>The specific liquidity window occupied by request $n$ is defined by the interval $[R(n-1), R(n)]$.</p>
+<h3 id="settlement-withdrawal-conditions">Settlement &amp; Withdrawal Conditions:</h3>
+<p>A request $n$ can be settled <strong>in full</strong> if and only if the current cumulative disbursement meets its snapshot:</p>
+<p><strong>Full Withdrawal Condition:</strong>
+$D_{current} \ge S_n$</p>
+<p><strong>Partial Withdrawal (Pro-rata Settlement):</strong>
+If the disbursement has entered the request&#x27;s window but hasn&#x27;t cleared it ($S_{n-1} &lt; D_{current} &lt; S_n$), the claimable amount $\Delta$ is:
+$\Delta = D_{current} - S_{n-1}$</p>
+<h2 id="4-why-this-model-is-superior">4. Why This Model is Superior</h2>
+<ul>
+<li><strong>Instant Efficiency ($O(1)$):</strong> There is no need to loop through thousands of requests. The contract only compares two numbers: **<em>Total_Disbursed</em> **vs <strong><em>Request_Snapshot.</em></strong></li>
+<li><strong>Absolute Fairness (True FIFO):</strong> First-In, First-Out is a mathematical certainty. Since $S_n$ is strictly increasing based on the request sequence, they are settled in the exact order they were created.</li>
+<li><strong>Maximum Gas Efficiency:</strong> Replacing dynamic arrays and pointers with a single <strong>uint256</strong> accumulation variable saves up to <strong>80% in gas costs</strong> compared to traditional models.</li>
+<li><strong>Minimalist Security:</strong> We eliminated the complex &quot;Queue Logic&quot; where most bugs hide. In our system, <strong>Math is the Auditor.</strong></li>
+</ul>
+<h2 id="5-closing-sometimes-the-biggest-performance-win-is-a-conceptual-reframing">5) Closing: sometimes the biggest performance win is a conceptual reframing</h2>
+<p>This is the trade-off I’ll take under deadline pressure: instead of adding more code to “optimize the queue,” <strong>change the model so the queue disappears</strong>.</p>
+<p>Key message:</p>
+<ul>
+<li><strong>transform a &quot;Queue Management&quot; problem into a simple &quot;Numeric Comparison&quot;</strong></li>
+<li>use <strong>Mathematical Accumulation Functions</strong> to make FIFO an invariant</li>
+<li>get <strong>$O(1)$</strong> hot-path cost and a smaller bug surface</li>
+</ul>
+<p>If your system has a queue (withdrawals, redemptions, batch settlements…), ask yourself: are you paying for the nature of the problem—or for the data structure you chose?</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Turning a Redemption Queue into a Numeric Comparison with Mathematical Accumulation",
+    "description": "Today, we want to share how we optimized the redemption process for a Stablecoin project.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_3_f7913173fa.png",
+    "author": {
+      "@type": "Person",
+      "name": "Kanz"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/turnning-a-redemption-queue-into-a-numeric-comparison-with-mathematical-accumulation-in-a-stablecoin-project"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

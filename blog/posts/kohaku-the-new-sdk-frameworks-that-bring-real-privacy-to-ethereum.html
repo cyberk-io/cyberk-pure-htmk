@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum | Cyberk Blog</title>
+  <meta name="description" content="Cyberk explores how Kohaku SDK framework brings default privacy and ZK security to every wallet.">
+  <link rel="canonical" href="https://cyberk.io/blog/kohaku-the-new-sdk-frameworks-that-bring-real-privacy-to-ethereum">
+  <meta property="og:title" content="Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum | Cyberk Blog">
+  <meta property="og:description" content="Cyberk explores how Kohaku SDK framework brings default privacy and ZK security to every wallet.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_10_3434bcd9b4.png">
+  <meta property="og:url" content="https://cyberk.io/blog/kohaku-the-new-sdk-frameworks-that-bring-real-privacy-to-ethereum">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum">
+  <meta name="twitter:description" content="Cyberk explores how Kohaku SDK framework brings default privacy and ZK security to every wallet.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_10_3434bcd9b4.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>7 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_10_3434bcd9b4.png" alt="Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <h2 id="why-privacy-matters">Why Privacy Matters</h2>
+<p>For me, privacy is a fundamental and indispensable requirement for any open and free financial system, and a pillar for personal autonomy, social order, and technological progress in the digital age.</p>
+<p>Currently, privacy is no longer something that can be overlooked. With the rapid development of AI, the ability for centralized data collection and analysis has increased significantly, while also expanding the scope of data that users voluntarily share. In the future, new technologies like brain-computer interfaces will create even greater challenges, as AI could potentially &quot;read&quot; human thoughts. In parallel, we also possess powerful tools to protect digital privacy, far exceeding what the cypherpunks of the 1990s imagined, as we explore in <strong><a href="from-kyc-to-zkp-de-pin.html">our Cyberk research on ZKP</a></strong>, technologies like Zero-Knowledge Succinct Non-Interactive Arguments of Knowledge (ZK-SNARKs) protect user identity while still proving reliability.</p>
+<p>According to Vitalik Buterin&#x27;s privacy arguments, privacy can be synthesized into three main points:</p>
+<ol>
+<li>
+<p>Privacy is freedom: Privacy provides every individual with the space to live their lives in the way that best suits their personal goals and needs.</p>
+</li>
+<li>
+<p>Privacy is order: Privacy is necessary for the basic functioning of many mechanisms in society, as it limits &quot;side games&quot; that undermine the primary objectives.</p>
+</li>
+<li>
+<p>Privacy is progress: Privacy through strong cryptography allows us to reap the benefits of data sharing without incurring privacy risks.</p>
+</li>
+</ol>
+<p>For Ethereum, privacy is a prerequisite for achieving the goal of becoming a widely adopted global financial system. Currently, crypto wallets in general cannot meet this requirement. On Ethereum, every transaction, every interaction with a protocol, and every asset you own is recorded publicly and permanently on the blockchain. This level of exposure creates significant risks for personal security and financial autonomy. Without privacy, mainstream adoption of the platform will be very difficult.</p>
+<h2 id="introducing-the-kohaku-sdk">Introducing the Kohaku SDK</h2>
+<p>Kohaku is built to address the critical privacy deficit in the Ethereum ecosystem. Kohaku&#x27;s primary goal is to ensure Ethereum can fulfill its promise of becoming a global financial platform by integrating privacy features right from the wallet layer.</p>
+<p>Technically, Kohaku is an SDK and also a reference implementation with core features such as:</p>
+<ul>
+<li>Running a light client directly in the browser, completely removing reliance on centralized RPCs.</li>
+<li>Supporting the sending, receiving, and requesting of private data via pluggable privacy protocols.</li>
+<li>Per-dApp account isolation and hiding unnecessary metadata.</li>
+<li>Moving towards post-quantum security and zero-knowledge proofs (ZK) based recovery.</li>
+</ul>
+<p><strong>The fundamental vision of Kohaku includes:</strong></p>
+<ul>
+<li>Crypto wallets need to have the concept of a &quot;shielded balance&quot; to secure user funds.</li>
+<li>When sending funds, there should be an option to &quot;send from shielded balance,&quot; and ideally, this option is enabled by default.</li>
+<li>When receiving funds, the wallet should automatically generate unlikable &quot;stealth addresses&quot; to protect identity.</li>
+<li>When interacting with decentralized applications (dApps), the wallet should use a &quot;fresh address&quot; that is completely isolated from the user&#x27;s other activities.</li>
+</ul>
+<p>Overall, Kohaku aims to provide a smooth and natural user experience (UX) while ensuring privacy features are deeply integrated into every transaction and interaction.</p>
+<h2 id="core-features-provided-by-the-kohaku-sdk">Core Features Provided by the Kohaku SDK</h2>
+<p>The Kohaku SDK provides everything a wallet needs to offer seamless privacy, including:</p>
+<blockquote>
+<p>Private Send &amp; Receive: Integration of privacy pools for shielded balances.</p>
+</blockquote>
+<blockquote>
+<p>Stealth Addresses: Automatic generation of unlikable receive addresses.</p>
+</blockquote>
+<blockquote>
+<p>Per-dApp Accounts: Isolate activity between applications by default.</p>
+</blockquote>
+<blockquote>
+<p>Built-in Light Client: Runs Helios to eliminate RPC surveillance.</p>
+</blockquote>
+<blockquote>
+<p>Private State Reads: Performs eth_call privately using TEE+ORAM (transitioning to PIR).</p>
+</blockquote>
+<blockquote>
+<p>Social Recovery: Account recovery via ZKEmail, ZKPassport, Anon Aadhaar.</p>
+</blockquote>
+<blockquote>
+<p>Post-Quantum Safeguards: Optional PQ accounts with optimized verifiers.</p>
+</blockquote>
+<blockquote>
+<p>ZK Hardware Signers: Support for hardware wallets for private protocols.</p>
+</blockquote>
+<blockquote>
+<p>Spending Policies: Configurable limits and rules for different signers.</p>
+</blockquote>
+<blockquote>
+<p>Universal Hardware Standard: Eliminates vendor lock-in by providing a reference implementation.</p>
+</blockquote>
+<h2 id="methodology">Methodology</h2>
+<p>Kohaku is Modular by Design, allowing wallet teams to adopt the features they want through a plugin system without having to rebuild their entire stack.</p>
+<p>Although the Ethereum Foundation is building the Kohaku Reference Wallet, it is not a consumer product, but rather an experimental reference implementation intended to prove that privacy and composability are not mutually exclusive.</p>
+<h2 id="problems-kohaku-will-solve">Problems Kohaku Will Solve</h2>
+<p>Kohaku was created to fix the current failure of privacy in crypto wallets, which is preventing Ethereum from becoming a widely accepted global financial system.</p>
+<p>Here are the two main problems that I believe Kohaku will solve in the near future:</p>
+<p><strong>The Problem of Financial Privacy and Personal Security</strong></p>
+<p>The fundamental issue is the public nature of the Ethereum blockchain.</p>
+<p>Lack of Default Privacy: Currently, every transaction you make, every protocol you interact with, and every asset you hold is permanently and publicly recorded.</p>
+<p>Risk to Mainstream Users: This level of exposure creates real risks to personal security and financial autonomy. Without privacy, mainstream adoption is impossible.</p>
+<p><strong>The Problem of Technical Complexity and User Experience (UX)</strong></p>
+<p>Kohaku addresses the technical barrier that prevents current wallets from easily offering privacy.</p>
+<ul>
+<li>
+<p>Complexity of Privacy Integration: Currently, to perform a private transaction, a user needs to download a specialized “private wallet,” understand complex protocols, and accept a poor User Experience (UX).</p>
+</li>
+<li>
+<p>Lack of Resources for Wallet Teams: Existing wallets cannot provide privacy because building it is incredibly complex. It requires deep expertise in <strong><a href="../../services/smart-contract-development.html">smart contract development</a></strong>, cryptographic primitives, and protocols that require continuous maintenance.</p>
+</li>
+<li>
+<p>Users are Forced to Choose: As a result, users are forced to choose between the wallets they trust and the privacy they need — this is “unacceptable.”</p>
+</li>
+</ul>
+<p>Kohaku addresses these problems by acting as a coordination mechanism and a public good, providing the tools to change the default standard of the ecosystem.</p>
+<blockquote>
+<p>Lack of Default Privacy: Provides a Privacy Toolkit (SDK) and primitives so that every wallet can offer privacy by default.</p>
+</blockquote>
+<blockquote>
+<p>Financial and Security Risk: Offers core features like shielded balance, stealth addresses, and Per-dApp Accounts to isolate activity and protect users from surveillance.</p>
+</blockquote>
+<blockquote>
+<p>Technical Complexity: Uses a plugin system and is modular by design, making it easy for wallet teams to integrate powerful privacy features without rebuilding their entire stack.</p>
+</blockquote>
+<blockquote>
+<p>RPC Surveillance: Integrates a Light Client (Helios) to eliminate RPC surveillance.</p>
+</blockquote>
+<p>The goal is not to build a new consumer product, but to make privacy the default in MetaMask, Rabby, Rainbow, and every other wallet that users already trust. Kohaku is the coordination mechanism to make this happen.</p>
+<h2 id="my-personal-conclusion">My Personal conclusion</h2>
+<p>From my perspective, Kohaku is not merely another ordinary SDK, it marks a significant paradigm shift in the Ethereum ecosystem. The current state — where financial exposure is the default and privacy is a complicated, isolated feature — is an unsustainable model for a platform with the vision of becoming the global settlement layer. Kohaku’s advent acknowledges a crucial reality: Privacy is not an optional premium feature but a non-negotiable public good.</p>
+<p>With its modular design, Kohaku focuses on making powerful cryptographic primitives, such as ZK-SNARKs and stealth addresses, easily accessible through an SDK, thereby elevating the standard of crypto wallet development. Kohaku also serves as a powerful coordination mechanism, creating a common and stable infrastructure that helps major wallets like MetaMask or Rainbow easily integrate privacy without needing to rebuild their architecture or develop specialized cryptographic expertise.</p>
+<p>Ultimately, Kohaku is the key factor for achieving true mainstream adoption. If users are forced to choose between the convenience of their trusted wallet and the basic right to financial privacy, Ethereum will fail to leverage its full potential. Through its reference implementation, Kohaku proves that privacy and user experience (UX) can coexist, paving the way for a future where a “shielded balance” and isolated dApp accounts are the default, not the exception. This initiative represents a critical step in safeguarding the financial freedom and personal autonomy of Ethereum users globally.</p>
+<p>For teams ready to build the next generation of privacy-preserving applications, <strong><a href="../../index.html">Cyberk</a></strong> stands ready to partner with you to turn these advanced concepts into reality.</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Kohaku: The New SDK Frameworks that Bring Real Privacy to Ethereum",
+    "description": "Cyberk explores how Kohaku SDK framework brings default privacy and ZK security to every wallet.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_10_3434bcd9b4.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/kohaku-the-new-sdk-frameworks-that-bring-real-privacy-to-ethereum"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>

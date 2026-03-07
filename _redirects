@@ -1,0 +1,3 @@
+# Redirect www to apex domain
+# (Configure this in Cloudflare DNS as well)
+# https://www.cyberk.io/* https://cyberk.io/:splat 301

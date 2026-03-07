@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks | Cyberk Blog</title>
+  <meta name="description" content="NFT Strategy is poised to create a new revolution for NFTs.">
+  <link rel="canonical" href="https://cyberk.io/blog/nft-strategy-a-new-nft-fi-paradigm">
+  <meta property="og:title" content="NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks | Cyberk Blog">
+  <meta property="og:description" content="NFT Strategy is poised to create a new revolution for NFTs.">
+  <meta property="og:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_7_25446a9129.png">
+  <meta property="og:url" content="https://cyberk.io/blog/nft-strategy-a-new-nft-fi-paradigm">
+  <meta property="og:type" content="article">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks">
+  <meta name="twitter:description" content="NFT Strategy is poised to create a new revolution for NFTs.">
+  <meta name="twitter:image" content="https://d2l5jmy01h5jfp.cloudfront.net/Banner_7_25446a9129.png">
+  <link rel="icon" href="../../assets/images/favicon.png">
+  <link rel="stylesheet" href="../../css/design-system.css">
+  <link rel="stylesheet" href="../../css/layout.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <style>
+    .blog-post-hero { padding: 8rem 0 2rem; background: var(--color-bg-gray); }
+    .blog-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; font-size: 0.875rem; color: var(--color-text-muted); font-weight: var(--fw-light); }
+    .blog-post-meta img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; }
+    .blog-post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: var(--radius-lg); margin-bottom: 2rem; }
+    .blog-content { max-width: 800px; margin: 0 auto; }
+    .blog-content h1 { font-size: clamp(1.5rem, 3vw, 2.25rem); margin: 2rem 0 1rem; }
+    .blog-content h2 { font-size: clamp(1.25rem, 2.5vw, 1.75rem); margin: 2rem 0 1rem; font-weight: var(--fw-semibold); }
+    .blog-content h3 { font-size: clamp(1.1rem, 2vw, 1.375rem); margin: 1.5rem 0 0.75rem; font-weight: var(--fw-medium); }
+    .blog-content p { font-size: 1rem; line-height: 1.8; margin-bottom: 1.25rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content ul, .blog-content ol { margin: 1rem 0 1.25rem 1.5rem; }
+    .blog-content li { font-size: 1rem; line-height: 1.8; margin-bottom: 0.5rem; font-weight: var(--fw-light); color: var(--color-text-secondary); }
+    .blog-content img { max-width: 100%; height: auto; border-radius: var(--radius-md); margin: 1.5rem 0; }
+    .blog-content a { color: var(--red-2); text-decoration: underline; }
+    .blog-content blockquote { border-left: 4px solid var(--red-2); padding: 1rem 1.5rem; margin: 1.5rem 0; background: var(--color-bg-gray); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+    .blog-content blockquote p { margin-bottom: 0.5rem; }
+    .blog-content pre { background: #1a1a1a; color: #f0f0f0; padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; margin: 1.5rem 0; font-size: 0.875rem; line-height: 1.6; }
+    .blog-content code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.875em; }
+    .blog-content :not(pre) > code { background: var(--color-bg-gray); padding: 0.15em 0.4em; border-radius: 4px; color: var(--red-2); }
+    .blog-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    .blog-content th, .blog-content td { border: 1px solid #e0e0e0; padding: 0.75rem 1rem; text-align: left; }
+    .blog-content th { background: var(--color-bg-gray); font-weight: var(--fw-medium); }
+    .blog-content strong { font-weight: var(--fw-semibold); color: var(--color-text-primary); }
+    .blog-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: var(--fw-medium); color: var(--red-2); text-decoration: none; margin-bottom: 2rem; }
+    .blog-back:hover { text-decoration: underline; }
+  </style>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K8ZNFPQZPN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-K8ZNFPQZPN');
+  </script>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header" id="site-header">
+    <div class="container container-wide header-inner">
+      <a href="../../index.html" class="logo" aria-label="Cyberk Home">
+        <img src="../../assets/icons/cyberk-logo.svg" alt="Cyberk" width="160" height="30">
+      </a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" hidden>
+      <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </label>
+      <nav class="nav-menu" id="nav-menu">
+        <a href="../../index.html">Home</a>
+        <div class="nav-dropdown">
+          <a href="../../services/index.html">Service &#9662;</a>
+          <div class="nav-dropdown-content">
+            <a href="../../services/mvp-development.html">MVP Development</a>
+            <a href="../../services/smart-contract-development.html">Smart Contract Development</a>
+            <a href="../../services/dedicated-lab.html">Dedicated Lab</a>
+            <a href="../../services/mvp-agent-development.html">MVP Agent Development</a>
+          </div>
+        </div>
+        <a href="../../about-us.html">About Us</a>
+        <a href="../index.html" class="active">Blog</a>
+      </nav>
+      <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary header-cta">CONTACT US <span class="arrow">&rarr;</span></a>
+    </div>
+  </header>
+
+  <main>
+    <section class="blog-post-hero">
+      <div class="container blog-content">
+        <a href="../index.html" class="blog-back">&larr; Back to blog</a>
+        <h1>NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks</h1>
+        <div class="blog-post-meta">
+          <span>Anderson</span>
+          <span>&middot;</span>
+          <span>January 29, 2026</span>
+          <span>&middot;</span>
+          <span>5 min read</span>
+        </div>
+        <img src="https://d2l5jmy01h5jfp.cloudfront.net/Banner_7_25446a9129.png" alt="NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks" class="blog-post-cover" loading="lazy">
+      </div>
+    </section>
+
+    <section class="section" style="background:#fff;padding-top:2rem;">
+      <div class="container blog-content">
+        <p>In September 2025, the NFT Strategy model was launched, pioneered by the $PNKSTR token from Tokenworks. This model is a &#x27;perpetual motion machine&#x27; that creates a self-reinforcing flywheel between token trading and NFT accumulation.
+As we analyze at <strong><a href="../../index.html">Cyberk</a></strong>, the NFT Strategy is poised to create a new revolution for NFTs, enabling users with limited capital to participate in the blue-chip NFT ecosystem without requiring them to spend hundreds of thousands of dollars for ownership.
+To implement an NFT Strategy project, we leverage two core technologies: DLMM (Dynamic Liquidity Market Maker) and the Uniswap v4 Hook</p>
+<h2 id="what-is-dlmm">What is DLMM?</h2>
+<p>Instead of distributing liquidity thinly and inefficiently, the DLMM (Dynamic Liquidity Market Maker) mechanism allows Liquidity Providers (LPs) to concentrate capital into target price ranges and automatically adapt to market volatility. The mechanism works on the Liquidity Book and Bin Architecture, where every “bin” represents a fixed price. Those advantages bring better capital usages and prevent impairment loss—a concept we frequently explore in our <strong><a href="https://cyberk.io/blog">DeFi market research</a></strong>.</p>
+<h3 id="what-are-v4-hooks">What are v4 Hooks?</h3>
+<p>By leveraging Hooks from Uniswap v4, developers can customize and create focused LP pools with specific functionalities. Every pool can have one hook but a hook can serve an infinite amount of pools to intercept and modify the execution flow at specific points during pool-related actions.</p>
+<h2 id="what-is-nftstrategy-and-how-does-it-work">What is NFTStrategy and how does it work?</h2>
+<p>The NFTStrategy era started in September 2025 where Tokenwork launched $PNKSTR—an automated trading protocol exclusively for CryptoPunks, the OG NFT collection from 2017.
+At its core is a “Strategy token”—a “perpetual machine” that creates a self-reinforcing flywheel between token trading and NFT accumulation.</p>
+<p>Here’s how the flywheel spins:</p>
+<ul>
+<li>Trading fees fuel the Treasury: Every “Strategic token” swap on DEXs like Uniswap incurs a 10% fee, with 8% funneled into an ETH treasury (Buy back vaults).</li>
+<li>Automated NFT acquisition: When the treasury hits the floor price of the cheapest NFT in the collection, the smart contract auto-buys it and instantly relists on the market at a 20% markup (1.2x purchase price).</li>
+<li>Profit reinvestment and burns: The NFT sales generate ETH profits, which are used to buy back and burn &quot;Strategic tokens,” reducing supply and creating deflationary pressure.</li>
+</ul>
+<p>NFT Strategy tokens generalize this model:
+They’re ERC-20 wrappers for any ERC-721 collection, generating “programmable buy pressure” via fees that fund floor sweeps and burns. Unlike passive holding, they turn NFTs into active DeFi engines, with royalties (1% of trades) flowing back to creators.</p>
+<h2 id="the-detailed-architecture-tech-stack">The Detailed Architecture &amp; Tech Stack</h2>
+<p>Building this requires advanced <strong><a href="../../services/smart-contract-development.html">Smart Contract Development</a></strong>. The architecture of an NFT Strategy project can be divided into two main parts:</p>
+<ul>
+<li>Part 1: Standard Components
+The trading token (e.g., $PNKSTR)
+ETH token
+Uniswap v4 Liquidity Pool</li>
+<li>Part 2: Custom-built Components
+Uniswap Liquidity Hook: The custom contract created with specific functions.
+Off-Chain Bot: Responsible for automating buy/sell transactions.
+Buyback Vault: The fund designated for buying back NFTs/Tokens.
+A Dead Address: Typically in the format 0x000….dead.</li>
+</ul>
+<h2 id="how-the-model-operates">How the Model Operates</h2>
+<p>First, the developer adds an initial amount of liquidity to ensure smooth swapping.
+When a user executes any transaction, an approximately 10% fee is imposed on each order. That’s why in Uniswap interface, you can only trade when the slippage is higher than 10%</p>
+<p>Below is the detailed, end-to-end workflow of how the model functions:</p>
+<ul>
+<li>Liquidity or trades occur: The developer adds Token + ETH to the pool or users execute swaps. An approximately 10% fee is imposed on each order, where 8% is funneled into the Buyback Vaults, 1% is used as the Creator Fee, and 1% is used for token burn.</li>
+<li>The DLMM will insure the transactions follow the Zero-slippage Swap mechanism, protect the LP pools when the market is highly fluctuated.</li>
+<li>Uniswap Pool executes swap: The Uniswap pool completes the trade and finalizes on-chain. This subsequently triggers the Liquidity Hook.</li>
+<li>Liquidity Hook triggers: The Hook collects the configured fees from the swap amounts:</li>
+<li>The token portion is sent immediately to the DeadAddress (burn).</li>
+<li>The ETH portion is forwarded to the Buyback Vault.</li>
+<li>Buyback Vault accumulates ETH: The 8% tax from each transaction is transferred to the Buyback Vault. Once the token amount in the vault hits the floor price of the NFT collection, it executes the offchain Bot for NFT buyback and burns a portion of the tokens to the dead address.</li>
+<li>Off-chain Bot listens: Monitors vault balance, gas, price volatility, and computes optimal buyback parameters.</li>
+<li>Bot executes buyback: The Bot buys the NFT or, if the NFT floor price increases by 20%, automatically sells that NFT to buy back the token..</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Hooks and DLMM are very powerful innovations. This design considerably lowers the barrier to AMM experimentation, as we&#x27;ve seen with other complex DeFi protocols like <strong><a href="what-we-can-learn-from-the-128-m-balancer-attack.html">Balancer V2</a></strong>, customizing concentrated liquidity mechanisms requires rigorous security practices to prevent exploits. By strategically leveraging the Dynamic Liquidity Market Maker (DLMM) structure alongside the Uniswap v4 Hooks framework, we unlock unparalleled efficiency and programmability by developing our own NFT Strategy products.
+For founders looking to develop their own NFT Strategy products, <strong><a href="../../index.html">Cyberk</a></strong> provides the deep technical expertise needed to build these custom hooks and secure trading engines.</p>
+<p>If you found it to be helpful, all amplification and all feedback would be greatly appreciated!</p></div></div></article><aside class="hidden lg:block lg:col-span-4"><div class="sticky top-24"><div class="p-6">
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container container-wide">
+      <div class="footer-grid">
+        <div class="footer-cta">
+          <div class="footer-cta-row">
+            <h2>Ready To<br>Get Started?</h2>
+            <a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener" class="btn btn-primary" style="padding:0.5rem 2rem;font-size:0.875rem;">CONTACT US <span class="arrow">&rarr;</span></a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <div>
+            <h3>COMPANY</h3>
+            <ul>
+              <li><a href="../../about-us.html">About us</a></li>
+              <li><a href="../../services/index.html">Service</a></li>
+              <li><a href="../index.html">Blog</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>SERVICES</h3>
+            <ul>
+              <li><a href="../../services/mvp-development.html">MVP Development</a></li>
+              <li><a href="../../services/smart-contract-development.html">Smart Contract Development</a></li>
+              <li><a href="../../services/dedicated-lab.html">Dedicated Lab</a></li>
+              <li><a href="../../services/mvp-agent-development.html">MVP Agent Development</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3>CONTACT</h3>
+            <ul>
+              <li><a href="https://www.linkedin.com/company/cyberk-io/" target="_blank" rel="noopener">Linkedin</a></li>
+              <li><a href="https://www.facebook.com/Cyberk.io" target="_blank" rel="noopener">Facebook</a></li>
+              <li><a href="https://t.me/cyberk_anderson" target="_blank" rel="noopener">Telegram</a></li>
+              <li><a href="mailto:anderson@cyberk.io">anderson@cyberk.io</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>All copyrights reserved by Cyberk &copy; 2025</div>
+        <div class="footer-bottom-right">HaNoi, VietNam GMT+7</div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "NFT Strategy: A New NFTFi Paradigm from DLMM and Uniswap Hooks",
+    "description": "NFT Strategy is poised to create a new revolution for NFTs.",
+    "image": "https://d2l5jmy01h5jfp.cloudfront.net/Banner_7_25446a9129.png",
+    "author": {
+      "@type": "Person",
+      "name": "Anderson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Cyberk",
+      "logo": { "@type": "ImageObject", "url": "https://cyberk.io/assets/icons/cyberk-logo.svg" }
+    },
+    "datePublished": "January 29, 2026",
+    "url": "https://cyberk.io/blog/nft-strategy-a-new-nft-fi-paradigm"
+  }
+  </script>
+
+  <script src="../../js/main.js" defer></script>
+</body>
+</html>
